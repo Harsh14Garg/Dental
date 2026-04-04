@@ -13,14 +13,16 @@ async function startServer() {
   });
 
   app.post("/api/send-email", async (req, res) => {
-    const appPassword = process.env.GMAIL_APP_PASSWORD;
     const { to, subject, html } = req.body;
+    const appPassword = process.env.GMAIL_APP_PASSWORD;
     
-    // Response first so the user doesn't see a spinning wheel
+    // ⚡️ SPEED PATCH: Tell the website "Success" immediately 
+    // so the user doesn't see a spinning wheel.
     res.status(200).json({ success: true });
 
     if (!appPassword) return;
 
+    // 🚀 BACKUP LOGIC: The exact setup that worked for you
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -30,15 +32,16 @@ async function startServer() {
     });
 
     try {
+      console.log(`Background sending to: ${to}`);
       await transporter.sendMail({
         from: '"De Dental Square" <h14agr@gmail.com>',
         to,
         subject,
         html
       });
-      console.log("✅ Email sent!");
+      console.log("✅ Email sent successfully!");
     } catch (error) {
-      console.error("❌ Email failed:", error);
+      console.error("❌ Email background failure:", error);
     }
   });
 
@@ -52,6 +55,8 @@ async function startServer() {
   } else {
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
+    
+    // Express v5 wildcard
     app.get('/{*splat}', (req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));
     });
