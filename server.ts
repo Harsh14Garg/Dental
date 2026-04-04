@@ -49,7 +49,6 @@ async function startServer() {
 
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
-    // ⚠️ THE FIX: Dynamically import Vite ONLY in development mode!
     const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
@@ -60,7 +59,9 @@ async function startServer() {
     // In production (Render), just serve the built frontend files
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
-    app.get('*', (req, res) => {
+    
+    // ⚠️ THE FIX: Express v5 requires wildcards to be named!
+    app.get('/{*splat}', (req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));
     });
   }
