@@ -13,7 +13,6 @@ import Contact from './components/Contact';
 import MyAppointments from './components/MyAppointments';
 import AdminDashboard from './components/AdminDashboard';
 import ServiceDetail from './components/ServiceDetail';
-import ErrorBoundary from './components/ErrorBoundary';
 import SmoothScroll from './components/layout/SmoothScroll';
 import Preloader from './components/layout/Preloader';
 import { PageTransition } from './components/layout/PageTransition';
@@ -50,57 +49,55 @@ export default function App() {
   return (
     <Router>
       <ScrollToTop />
-      <ErrorBoundary>
-        <AnimatePresence mode="wait">
-          {loading && <Preloader key="preloader" onComplete={() => setLoading(false)} />}
-        </AnimatePresence>
+      <AnimatePresence mode="wait">
+        {loading && <Preloader key="preloader" onComplete={() => setLoading(false)} />}
+      </AnimatePresence>
 
-        {!loading && (
-          <SmoothScroll>
-            <div className="fixed inset-0 z-0 pointer-events-none">
-              <SceneWrapper />
-            </div>
+      {!loading && (
+        <SmoothScroll>
+          <div className="fixed inset-0 z-0 pointer-events-none">
+            <SceneWrapper />
+          </div>
+          
+          <div className="min-h-screen flex flex-col bg-[var(--color-bg-primary)] text-[var(--color-text-primary)] relative">
+            <Navbar />
             
-            <div className="min-h-screen flex flex-col bg-[var(--color-bg-primary)] text-[var(--color-text-primary)] relative">
-              <Navbar />
-              
-              <main className="flex-grow relative z-10">
-                <AnimatePresence mode="wait">
-                  <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/about" element={
-                      <PageTransition><About /></PageTransition>
-                    } />
-                    <Route path="/services" element={
-                      <PageTransition><Services /></PageTransition>
-                    } />
-                    <Route path="/services/:serviceId" element={
-                      <PageTransition><ServiceDetail /></PageTransition>
-                    } />
-                    <Route path="/testimonials" element={
-                      <PageTransition><Testimonials /></PageTransition>
-                    } />
-                    <Route path="/appointment" element={
-                      <PageTransition><AppointmentForm /></PageTransition>
-                    } />
-                    <Route path="/contact" element={
-                      <PageTransition><Contact /></PageTransition>
-                    } />
-                    <Route path="/admin" element={
-                      <PageTransition><AdminDashboard /></PageTransition>
-                    } />
-                    <Route path="/my-appointments" element={
-                      <PageTransition><MyAppointments /></PageTransition>
-                    } />
-                  </Routes>
-                </AnimatePresence>
-              </main>
-              
-              <Footer />
-            </div>
-          </SmoothScroll>
-        )}
-      </ErrorBoundary>
+            <main className="flex-grow relative z-10">
+              <AnimatePresence mode="wait">
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/about" element={
+                    <PageTransition><About /></PageTransition>
+                  } />
+                  <Route path="/services" element={
+                    <PageTransition><Services /></PageTransition>
+                  } />
+                  <Route path="/services/:serviceId" element={
+                    <PageTransition><ServiceDetail /></PageTransition>
+                  } />
+                  <Route path="/testimonials" element={
+                    <PageTransition><Testimonials /></PageTransition>
+                  } />
+                  <Route path="/appointment" element={
+                    <PageTransition><AppointmentForm /></PageTransition>
+                  } />
+                  <Route path="/contact" element={
+                    <PageTransition><Contact /></PageTransition>
+                  } />
+                  <Route path="/admin" element={
+                    <PageTransition><AdminDashboard /></PageTransition>
+                  } />
+                  <Route path="/my-appointments" element={
+                    <PageTransition><MyAppointments /></PageTransition>
+                  } />
+                </Routes>
+              </AnimatePresence>
+            </main>
+            
+            <Footer />
+          </div>
+        </SmoothScroll>
+      )}
     </Router>
   );
 }
