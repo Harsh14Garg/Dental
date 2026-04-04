@@ -1,7 +1,6 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Star, Shield, Clock, CheckCircle2, Users } from 'lucide-react';
-import { HeroFloatingShapes } from './3d/FloatingShapes';
 import Magnetic from './ui/Magnetic';
 import { useRef } from 'react';
 import { fadeInUp, fadeInStagger, scaleIn, slideInLeft, slideInRight, revealOnScroll, hoverLift } from '../lib/animations';
@@ -40,8 +39,6 @@ export default function Hero() {
   return (
     <div ref={containerRef}>
       <section className="relative min-h-[100vh] flex items-center justify-center pt-24 pb-16 overflow-hidden">
-        <HeroFloatingShapes />
-
         <motion.div 
           className="container mx-auto px-6 relative z-10"
           style={{ opacity: heroOpacity, y: heroY }}
