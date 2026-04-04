@@ -20,23 +20,22 @@ async function startServer() {
       return res.status(200).json({ success: true, note: "Mocked" });
     }
 
-    // 🚀 THE NUCLEAR FIX: Forces IPv4 and explicit TLS handshake
+    // 🚀 THE TS FIX: Added 'as any' to satisfy the compiler
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 465,
       secure: true,
       auth: {
         user: 'h14agr@gmail.com',
-        pass: appPassword.replace(/\s+/g, '') // Automatically cleans spaces
+        pass: appPassword.replace(/\s+/g, '') 
       },
-      // This is the magic part for Render:
-      family: 4, // Forces IPv4 (Avoids IPv6 timeout)
+      family: 4, 
       tls: {
         rejectUnauthorized: false,
-        servername: 'smtp.gmail.com' // Helps with handshake on cloud IPs
+        servername: 'smtp.gmail.com' 
       },
-      connectionTimeout: 15000 // If it can't connect in 15s, stop spinning
-    });
+      connectionTimeout: 15000 
+    } as any);
 
     const { to, subject, html } = req.body;
 
