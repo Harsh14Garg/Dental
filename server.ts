@@ -1,61 +1,55 @@
 import express from "express";
 import path from "path";
-import nodemailer from "nodemailer";
+import { Resend } from 'resend'; // 🚀 Switched from Nodemailer to Resend
 
 async function startServer() {
   const app = express();
   const PORT = Number(process.env.PORT) || 3000;
 
+  // Initialize Resend with your API Key from Render Environment
+  const resend = new Resend(process.env.RESEND_API_KEY);
+
   app.use(express.json());
 
+  // API routes FIRST
   app.get("/api/health", (req, res) => {
     res.json({ status: "ok" });
   });
 
   app.post("/api/send-email", async (req, res) => {
-    const appPassword = process.env.GMAIL_APP_PASSWORD;
+    const apiKey = process.env.RESEND_API_KEY;
+    const { to, subject, html } = req.body;
     
-    if (!appPassword) {
-      console.warn("GMAIL_APP_PASSWORD is not set.");
-      return res.status(200).json({ success: true, note: "Mocked" });
+    if (!apiKey) {
+      console.warn("RESEND_API_KEY is not set. Email not sent.");
+      return res.status(200).json({ success: true, note: "Email mocked" });
     }
 
-    // 🚀 THE FINAL HARDCODE: Using Google's direct IPv4 to stop the ENETUNREACH error
-    const transporter = nodemailer.createTransport({
-      host: "74.125.130.108", // Direct IPv4 address for smtp.gmail.com
-      port: 465,
-      secure: true,
-      auth: {
-        user: 'h14agr@gmail.com',
-        pass: appPassword.replace(/\s+/g, '') 
-      },
-      // We keep servername so Google knows we are trying to talk to 'smtp.gmail.com'
-      tls: {
-        rejectUnauthorized: false,
-        servername: 'smtp.gmail.com' 
-      },
-      connectionTimeout: 15000 
-    } as any);
-
-    const { to, subject, html } = req.body;
-
     try {
-      console.log(`Attempting email via IP to: ${to}`);
-      const info = await transporter.sendMail({
-        from: '"De Dental Square" <h14agr@gmail.com>',
-        to,
-        subject,
-        html
-      });
+      console.log(`Attempting API email to: ${to}`);
       
-      console.log("✅ SUCCESS:", info.messageId);
-      res.status(200).json({ success: true, messageId: info.messageId });
+      const { data, error } = await resend.emails.send({
+        // ⚠️ NOTE: Resend Free Tier requires sending FROM 'onboarding@resend.dev'
+        from: 'Dental Square <onboarding@resend.dev>', 
+        to: [to],
+        subject: subject,
+        html: html,
+      });
+
+      if (error) {
+        console.error("❌ RESEND ERROR:", error);
+        return res.status(400).json({ success: false, error });
+      }
+
+      console.log("✅ SUCCESS: Email sent via Resend API");
+      res.status(200).json({ success: true, id: data?.id });
     } catch (error) {
-      console.error("❌ NODEMAILER ERROR:", error);
-      res.status(500).json({ success: false, error: error instanceof Error ? error.message : error });
+      console.error("❌ SERVER ERROR:", error);
+      res.status(500).json({ success: false, error });
     }
   });
 
+  // Production environment setup
   if (process.env.NODE_ENV !== "production") {
     const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
@@ -64,8 +58,11 @@ async function startServer() {
     });
     app.use(vite.middlewares);
   } else {
+    // In production (Render), serve the static built files
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
+    
+    // Express v5 named wildcard for SPA routing
     app.get('/{*splat}', (req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));
     });
@@ -76,6 +73,7 @@ async function startServer() {
   });
 }
 
+// Catch-all for fatal startup errors
 startServer().catch((err) => {
   console.error("Fatal Server Error:", err);
   process.exit(1);
