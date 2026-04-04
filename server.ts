@@ -1,13 +1,10 @@
 import express from "express";
 import path from "path";
-import { Resend } from 'resend'; // 🚀 Switched from Nodemailer to Resend
+import nodemailer from "nodemailer"; // 🚀 Reverting to Nodemailer for Gmail Inbox magic
 
 async function startServer() {
   const app = express();
   const PORT = Number(process.env.PORT) || 3000;
-
-  // Initialize Resend with your API Key from Render Environment
-  const resend = new Resend(process.env.RESEND_API_KEY);
 
   app.use(express.json());
 
@@ -17,35 +14,38 @@ async function startServer() {
   });
 
   app.post("/api/send-email", async (req, res) => {
-    const apiKey = process.env.RESEND_API_KEY;
+    const appPassword = process.env.GMAIL_APP_PASSWORD;
     const { to, subject, html } = req.body;
     
-    if (!apiKey) {
-      console.warn("RESEND_API_KEY is not set. Email not sent.");
+    if (!appPassword) {
+      console.warn("GMAIL_APP_PASSWORD is not set. Email not sent.");
       return res.status(200).json({ success: true, note: "Email mocked" });
     }
 
+    // 🚀 THE MAGIC CONFIG: This worked on your backup site
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'h14agr@gmail.com',
+        pass: appPassword
+      }
+    });
+
     try {
-      console.log(`Attempting API email to: ${to}`);
+      console.log(`Attempting Gmail SMTP to: ${to}`);
       
-      const { data, error } = await resend.emails.send({
-        // ⚠️ NOTE: Resend Free Tier requires sending FROM 'onboarding@resend.dev'
-        from: 'Dental Square <onboarding@resend.dev>', 
-        to: [to],
-        subject: subject,
-        html: html,
+      const info = await transporter.sendMail({
+        from: '"De Dental Square" <h14agr@gmail.com>',
+        to,
+        subject,
+        html
       });
 
-      if (error) {
-        console.error("❌ RESEND ERROR:", error);
-        return res.status(400).json({ success: false, error });
-      }
-
-      console.log("✅ SUCCESS: Email sent via Resend API");
-      res.status(200).json({ success: true, id: data?.id });
+      console.log("✅ SUCCESS: Email sent via Gmail SMTP:", info.messageId);
+      res.status(200).json({ success: true, messageId: info.messageId });
     } catch (error) {
-      console.error("❌ SERVER ERROR:", error);
-      res.status(500).json({ success: false, error });
+      console.error("❌ NODEMAILER ERROR:", error);
+      res.status(500).json({ success: false, error: error instanceof Error ? error.message : error });
     }
   });
 
@@ -73,7 +73,6 @@ async function startServer() {
   });
 }
 
-// Catch-all for fatal startup errors
 startServer().catch((err) => {
   console.error("Fatal Server Error:", err);
   process.exit(1);
