@@ -21,11 +21,17 @@ async function startServer() {
       return res.status(200).json({ success: true, note: "Email mocked (no App Password)" });
     }
 
+    // ⚠️ THE FIX: Explicit SMTP configuration to prevent Render from hanging
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true, 
       auth: {
         user: 'h14agr@gmail.com',
         pass: appPassword
+      },
+      tls: {
+        rejectUnauthorized: false
       }
     });
 
@@ -60,7 +66,7 @@ async function startServer() {
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
     
-    // ⚠️ THE FIX: Express v5 requires wildcards to be named!
+    // Express v5 requires wildcards to be named!
     app.get('/{*splat}', (req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));
     });
