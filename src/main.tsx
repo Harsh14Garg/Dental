@@ -1,7 +1,6 @@
 import {StrictMode} from 'react';
 import {createRoot} from 'react-dom/client';
 import App from './App.tsx';
-import ErrorBoundary from './components/ErrorBoundary';
 import './index.css';
 
 // Suppress benign WebSocket errors in the preview environment
@@ -22,8 +21,6 @@ if (typeof window !== 'undefined') {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ErrorBoundary>
-      <App />
-    </ErrorBoundary>
+    <App />
   </StrictMode>,
 );
