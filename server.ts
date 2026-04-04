@@ -8,7 +8,6 @@ async function startServer() {
 
   app.use(express.json());
 
-  // API routes FIRST
   app.get("/api/health", (req, res) => {
     res.json({ status: "ok" });
   });
@@ -17,27 +16,32 @@ async function startServer() {
     const appPassword = process.env.GMAIL_APP_PASSWORD;
     
     if (!appPassword) {
-      console.warn("GMAIL_APP_PASSWORD is not set. Email not sent.");
-      return res.status(200).json({ success: true, note: "Email mocked (no App Password)" });
+      console.warn("GMAIL_APP_PASSWORD is not set.");
+      return res.status(200).json({ success: true, note: "Mocked" });
     }
 
-    // ⚠️ THE FIX: Explicit SMTP configuration to prevent Render from hanging
+    // 🚀 THE NUCLEAR FIX: Forces IPv4 and explicit TLS handshake
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 465,
-      secure: true, 
+      secure: true,
       auth: {
         user: 'h14agr@gmail.com',
-        pass: appPassword
+        pass: appPassword.replace(/\s+/g, '') // Automatically cleans spaces
       },
+      // This is the magic part for Render:
+      family: 4, // Forces IPv4 (Avoids IPv6 timeout)
       tls: {
-        rejectUnauthorized: false
-      }
+        rejectUnauthorized: false,
+        servername: 'smtp.gmail.com' // Helps with handshake on cloud IPs
+      },
+      connectionTimeout: 15000 // If it can't connect in 15s, stop spinning
     });
 
     const { to, subject, html } = req.body;
 
     try {
+      console.log(`Attempting email to: ${to}`);
       const info = await transporter.sendMail({
         from: '"De Dental Square" <h14agr@gmail.com>',
         to,
@@ -45,15 +49,14 @@ async function startServer() {
         html
       });
       
-      console.log("Email sent successfully:", info.messageId);
+      console.log("✅ SUCCESS:", info.messageId);
       res.status(200).json({ success: true, messageId: info.messageId });
     } catch (error) {
-      console.error("Error sending email via Gmail:", error);
-      res.status(500).json({ success: false, error });
+      console.error("❌ NODEMAILER ERROR:", error);
+      res.status(500).json({ success: false, error: error instanceof Error ? error.message : error });
     }
   });
 
-  // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
     const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
@@ -62,22 +65,18 @@ async function startServer() {
     });
     app.use(vite.middlewares);
   } else {
-    // In production (Render), just serve the built frontend files
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
-    
-    // Express v5 requires wildcards to be named!
     app.get('/{*splat}', (req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));
     });
   }
 
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running on port ${PORT}`);
   });
 }
 
-// Added a catch block to surface any future hidden errors!
 startServer().catch((err) => {
   console.error("Fatal Server Error:", err);
   process.exit(1);
