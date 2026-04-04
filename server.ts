@@ -1,5 +1,4 @@
 import express from "express";
-import { createServer as createViteServer } from "vite";
 import path from "path";
 import nodemailer from "nodemailer";
 
@@ -50,12 +49,15 @@ async function startServer() {
 
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
+    // ⚠️ THE FIX: Dynamically import Vite ONLY in development mode!
+    const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
     });
     app.use(vite.middlewares);
   } else {
+    // In production (Render), just serve the built frontend files
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
     app.get('*', (req, res) => {
@@ -68,4 +70,8 @@ async function startServer() {
   });
 }
 
-startServer();
+// Added a catch block to surface any future hidden errors!
+startServer().catch((err) => {
+  console.error("Fatal Server Error:", err);
+  process.exit(1);
+});
