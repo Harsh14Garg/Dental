@@ -20,16 +20,16 @@ async function startServer() {
       return res.status(200).json({ success: true, note: "Mocked" });
     }
 
-    // 🚀 THE TS FIX: Added 'as any' to satisfy the compiler
+    // 🚀 THE FINAL HARDCODE: Using Google's direct IPv4 to stop the ENETUNREACH error
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
+      host: "74.125.130.108", // Direct IPv4 address for smtp.gmail.com
       port: 465,
       secure: true,
       auth: {
         user: 'h14agr@gmail.com',
         pass: appPassword.replace(/\s+/g, '') 
       },
-      family: 4, 
+      // We keep servername so Google knows we are trying to talk to 'smtp.gmail.com'
       tls: {
         rejectUnauthorized: false,
         servername: 'smtp.gmail.com' 
@@ -40,7 +40,7 @@ async function startServer() {
     const { to, subject, html } = req.body;
 
     try {
-      console.log(`Attempting email to: ${to}`);
+      console.log(`Attempting email via IP to: ${to}`);
       const info = await transporter.sendMail({
         from: '"De Dental Square" <h14agr@gmail.com>',
         to,
