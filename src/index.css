@@ -404,7 +404,14 @@ input:focus, textarea:focus, select:focus {
 .input-luxury::placeholder { color: var(--color-text-muted); }
 
 @media (max-width: 768px) {
-  .glass-nav { background: rgba(253, 251, 247, 0.95); }
+  .glass-nav, .glass-nav-scrolled, .glass-card, .dental-card, .glass, .glass-dark { 
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .glass-nav { background: rgba(253, 251, 247, 0.98); }
+  .glass-nav-scrolled { background: rgba(253, 251, 247, 0.98); }
+  .glass-card { background: rgba(255, 255, 255, 0.95); }
+  .dental-card { background: rgba(255, 255, 255, 0.95); }
   * { cursor: auto !important; }
 }
 

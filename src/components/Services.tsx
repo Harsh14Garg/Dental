@@ -1,72 +1,10 @@
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { Sparkles, HeartPulse, ShieldCheck, Microscope, Smile, Activity, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { TiltCard } from './ui/TiltCard';
 import { fadeInUp, fadeInStagger, revealOnScroll } from '../lib/animations';
 import { useRef } from 'react';
-
-const services = [
-  { 
-    id: "general-dentistry",
-    title: "General Dentistry", 
-    description: "Routine checkups, cleanings, and preventative care to keep your smile healthy.",
-    longDescription: "Our general dentistry services focus on maintaining your oral health through regular checkups, professional cleanings, and preventative care. We believe in early intervention to prevent more complex issues down the line.",
-    icon: HeartPulse, 
-    color: "from-rose-500/10 to-rose-600/5",
-    image: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800",
-    benefits: ["Regular checkups", "Professional cleaning", "Early cavity detection", "Oral cancer screening"]
-  },
-  { 
-    id: "cosmetic-dentistry",
-    title: "Cosmetic Dentistry", 
-    description: "Teeth whitening, veneers, and smile makeovers to boost your confidence.",
-    longDescription: "Enhance the natural beauty of your smile with our cosmetic dentistry solutions. From professional teeth whitening to custom-crafted veneers, we help you achieve the smile you've always wanted.",
-    icon: Sparkles, 
-    color: "from-amber-500/10 to-amber-600/5",
-    image: "https://images.unsplash.com/photo-1629904853716-f0bc54eea481?auto=format&fit=crop&q=80&w=800",
-    benefits: ["Teeth whitening", "Porcelain veneers", "Smile makeovers", "Bonding"]
-  },
-  { 
-    id: "orthodontics",
-    title: "Orthodontics", 
-    description: "Braces and clear aligners to straighten your teeth and improve your bite.",
-    longDescription: "Achieve a straighter, healthier smile with our orthodontic treatments. We offer both traditional braces and modern clear aligner solutions tailored to your specific needs.",
-    icon: Activity, 
-    color: "from-blue-500/10 to-blue-600/5",
-    image: "https://images.unsplash.com/photo-1599775740643-34e89987178c?auto=format&fit=crop&q=80&w=800",
-    benefits: ["Traditional braces", "Clear aligners", "Bite correction", "Improved oral function"]
-  },
-  { 
-    id: "oral-surgery",
-    title: "Oral Surgery", 
-    description: "Expert surgical procedures including wisdom teeth removal and implants.",
-    longDescription: "Our skilled oral surgeons provide expert care for complex dental procedures, including wisdom teeth extractions, dental implants, and corrective jaw surgeries, all in a comfortable environment.",
-    icon: Microscope, 
-    color: "from-emerald-500/10 to-emerald-600/5",
-    image: "https://images.unsplash.com/photo-1579684385127-1d15d5b855e7?auto=format&fit=crop&q=80&w=800",
-    benefits: ["Wisdom teeth removal", "Dental implants", "Corrective jaw surgery", "Bone grafting"]
-  },
-  { 
-    id: "pediatric-care",
-    title: "Pediatric Care", 
-    description: "Gentle dental care specifically designed for our youngest patients.",
-    longDescription: "We provide a welcoming and gentle environment for children's dental care. Our focus is on making every visit positive, educational, and comfortable for your little ones.",
-    icon: Smile, 
-    color: "from-purple-500/10 to-purple-600/5",
-    image: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800",
-    benefits: ["Child-friendly environment", "Preventative care", "Education", "Early intervention"]
-  },
-  { 
-    id: "emergency-care",
-    title: "Emergency Care", 
-    description: "Rapid response for dental emergencies when you need us most.",
-    longDescription: "Dental emergencies can happen unexpectedly. We offer rapid response and expert care to alleviate pain and address urgent dental issues promptly.",
-    icon: ShieldCheck, 
-    color: "from-red-500/10 to-red-600/5",
-    image: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800",
-    benefits: ["Same-day appointments", "Pain relief", "Urgent care", "Expert diagnosis"]
-  }
-];
+import { services } from '../constants/services';
 
 export default function Services() {
   return (

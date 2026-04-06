@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Calendar, Clock, Activity, AlertCircle } from 'lucide-react';
-import { db, auth } from '../firebase';
+import { db, auth, handleFirestoreError, OperationType } from '../firebase';
 import { collection, query, where, onSnapshot, orderBy } from 'firebase/firestore';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { fadeInUp, fadeInStagger, scaleIn } from '../lib/animations';
@@ -49,8 +49,8 @@ export default function MyAppointments() {
       setAppointments(apps);
       setLoading(false);
     }, (error) => {
-      console.error("Error fetching appointments:", error);
       setLoading(false);
+      handleFirestoreError(error, OperationType.GET, 'appointments');
     });
 
     return () => unsubscribe();

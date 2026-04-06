@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Linkedin, Heart, ArrowUpRight } from 'lucide-react';
 import Magnetic from '../ui/Magnetic';
+import { services } from '../../constants/services';
 
 const quickLinks = [
   { name: 'About Us', path: '/about' },
@@ -9,15 +10,6 @@ const quickLinks = [
   { name: 'Testimonials', path: '/testimonials' },
   { name: 'Book Appointment', path: '/appointment' },
   { name: 'Contact', path: '/contact' },
-];
-
-const services = [
-  { name: 'Dental Implants', path: '/services/oral-surgery' },
-  { name: 'Smile Makeover', path: '/services/cosmetic-dentistry' },
-  { name: 'Root Canal', path: '/services/general-dentistry' },
-  { name: 'Teeth Whitening', path: '/services/cosmetic-dentistry' },
-  { name: 'Orthodontics', path: '/services/orthodontics' },
-  { name: 'Pediatric Care', path: '/services/pediatric-care' },
 ];
 
 const socialLinks = [
@@ -48,8 +40,8 @@ const staggerItem = {
 export default function Footer() {
   return (
     <footer className="bg-[var(--color-brand-dark)] text-white/70 pt-16 md:pt-24 pb-10 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl opacity-5 bg-[var(--color-brand-primary)]" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full blur-3xl opacity-5 bg-[var(--color-brand-primary)]" />
+      <div className="absolute top-0 right-0 w-96 h-96 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(197, 160, 89, 0.05) 0%, transparent 70%)' }} />
+      <div className="absolute bottom-0 left-0 w-64 h-64 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(197, 160, 89, 0.05) 0%, transparent 70%)' }} />
       
       <div 
         className="absolute inset-0 opacity-[0.02]"
@@ -120,10 +112,10 @@ export default function Footer() {
             <h4 className="text-white font-medium uppercase tracking-[0.2em] text-lg mb-10">Services</h4>
             <ul className="space-y-6">
               {services.map((item) => (
-                <li key={item.name}>
-                  <Link to={item.path} className="text-base flex items-center justify-center md:justify-start gap-4 group transition-colors hover:text-[var(--color-brand-primary)] text-white/60">
+                <li key={item.id}>
+                  <Link to={`/services/${item.id}`} className="text-base flex items-center justify-center md:justify-start gap-4 group transition-colors hover:text-[var(--color-brand-primary)] text-white/60">
                     <motion.span className="w-1.5 h-1.5 bg-[var(--color-brand-primary)]/50 group-hover:bg-[var(--color-brand-primary)] transition-all" whileHover={{ scale: 1.5 }} />
-                    <span className="group-hover:translate-x-1 transition-transform">{item.name}</span>
+                    <span className="group-hover:translate-x-1 transition-transform">{item.title}</span>
                   </Link>
                 </li>
               ))}

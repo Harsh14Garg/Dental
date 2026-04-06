@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Calendar, Clock, Activity, AlertCircle, CheckCircle, XCircle, User as UserIcon } from 'lucide-react';
-import { db, auth } from '../firebase';
+import { Calendar, Clock, Activity, AlertCircle, CheckCircle, XCircle, User as UserIcon, Trash2, MessageSquare, Star } from 'lucide-react';
+import { db, auth, deleteAppointment, handleFirestoreError, OperationType } from '../firebase';
 import { collection, query, onSnapshot, orderBy, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { fadeInUp, fadeInStagger } from '../lib/animations';
@@ -18,11 +18,23 @@ interface Appointment {
   status: 'pending' | 'confirmed' | 'cancelled';
 }
 
+interface Testimonial {
+  id: string;
+  name: string;
+  service: string;
+  content: string;
+  rating: number;
+  image: string;
+  reply?: string;
+}
+
 export default function AdminDashboard() {
   const [appointments, setAppointments] = React.useState<Appointment[]>([]);
+  const [testimonials, setTestimonials] = React.useState<Testimonial[]>([]);
   const [user, setUser] = React.useState<User | null>(null);
   const [isAdmin, setIsAdmin] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
+  const [reply, setReply] = React.useState<Record<string, string>>({});
 
   React.useEffect(() => {
     let unsubscribeDoc: (() => void) | undefined;
@@ -38,9 +50,9 @@ export default function AdminDashboard() {
             setLoading(false);
           }
         }, (error) => {
-          console.error("Error checking admin status:", error);
           setIsAdmin(false);
           setLoading(false);
+          handleFirestoreError(error, OperationType.GET, `users/${currentUser.uid}`);
         });
       } else {
         setIsAdmin(false);
@@ -59,24 +71,28 @@ export default function AdminDashboard() {
   React.useEffect(() => {
     if (!user || !isAdmin) return;
 
-    const q = query(
-      collection(db, 'appointments'),
-      orderBy('createdAt', 'desc')
-    );
-
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const apps = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      })) as Appointment[];
+    const qApps = query(collection(db, 'appointments'), orderBy('createdAt', 'desc'));
+    const unsubscribeApps = onSnapshot(qApps, (snapshot) => {
+      const apps = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Appointment[];
       setAppointments(apps);
       setLoading(false);
     }, (error) => {
-      console.error("Error fetching all appointments:", error);
       setLoading(false);
+      handleFirestoreError(error, OperationType.GET, 'appointments');
     });
 
-    return () => unsubscribe();
+    const qTests = query(collection(db, 'testimonials'), orderBy('createdAt', 'desc'));
+    const unsubscribeTests = onSnapshot(qTests, (snapshot) => {
+      const tests = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Testimonial[];
+      setTestimonials(tests);
+    }, (error) => {
+      handleFirestoreError(error, OperationType.GET, 'testimonials');
+    });
+
+    return () => {
+      unsubscribeApps();
+      unsubscribeTests();
+    };
   }, [user, isAdmin]);
 
   const updateStatus = async (app: Appointment, newStatus: 'confirmed' | 'cancelled') => {
@@ -108,8 +124,26 @@ export default function AdminDashboard() {
         });
       }
     } catch (error) {
-      console.error("Error updating appointment status:", error);
       alert("Failed to update status. Please check your permissions.");
+      handleFirestoreError(error, OperationType.UPDATE, `appointments/${app.id}`);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteAppointment(id);
+    } catch (error) {
+      alert("Failed to delete appointment.");
+    }
+  };
+
+  const handleReply = async (id: string) => {
+    try {
+      await updateDoc(doc(db, 'testimonials', id), { reply: reply[id] });
+      setReply(prev => ({ ...prev, [id]: '' }));
+    } catch (error) {
+      alert("Failed to add reply.");
+      handleFirestoreError(error, OperationType.UPDATE, `testimonials/${id}`);
     }
   };
 
@@ -119,25 +153,58 @@ export default function AdminDashboard() {
     <section className="py-32 bg-[var(--color-bg-secondary)] relative" id="admin">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-16 gap-8">
-          <motion.div
-            variants={fadeInStagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <motion.h2 
-              variants={fadeInUp}
-              className="text-[var(--color-brand-primary)] font-medium tracking-[0.3em] uppercase text-[10px] mb-4"
-            >
-              Admin Control Panel
-            </motion.h2>
-            <motion.p 
-              variants={fadeInUp}
-              className="text-4xl md:text-5xl font-serif text-[var(--color-text-primary)]"
-            >
-              All <span className="italic text-[var(--color-brand-primary)]">Bookings</span>
-            </motion.p>
+          <motion.div variants={fadeInStagger} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+            <motion.h2 variants={fadeInUp} className="text-[var(--color-brand-primary)] font-medium tracking-[0.3em] uppercase text-[10px] mb-4">Admin Control Panel</motion.h2>
+            <motion.p variants={fadeInUp} className="text-4xl md:text-5xl font-serif text-[var(--color-text-primary)]">All <span className="italic text-[var(--color-brand-primary)]">Bookings</span></motion.p>
           </motion.div>
+        </div>
+
+        <div className="mb-16">
+          <h3 className="text-2xl font-serif mb-8">Manage Testimonials</h3>
+          <div className="grid md:grid-cols-2 gap-8">
+            {testimonials.map(t => (
+              <div key={t.id} className="bg-[var(--color-bg-primary)] p-6 rounded-lg border border-[var(--color-brand-primary)]/10">
+                <div className="flex justify-between items-start mb-4">
+                  <div>
+                    <h4 className="font-medium text-[var(--color-text-primary)]">{t.name}</h4>
+                    <p className="text-xs text-[var(--color-brand-primary)] uppercase tracking-widest">{t.service}</p>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Star size={14} className="fill-[var(--color-brand-primary)] text-[var(--color-brand-primary)]" />
+                    <span className="text-sm font-medium">{t.rating}</span>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-600 mb-4">{t.content}</p>
+                
+                {/* Reply Section */}
+                <div className="mt-4 border-t border-[var(--color-brand-primary)]/10 pt-4">
+                  {t.reply && (
+                    <div className="mb-4">
+                      <p className="text-xs font-bold text-[var(--color-brand-primary)] uppercase tracking-wider mb-1">Admin Reply:</p>
+                      <p className="text-sm text-[var(--color-brand-primary)] italic">{t.reply}</p>
+                    </div>
+                  )}
+                  
+                  <div className="flex gap-2">
+                    <input 
+                      type="text" 
+                      placeholder={t.reply ? "Update reply..." : "Reply to this testimonial..."} 
+                      value={reply[t.id] || ''} 
+                      onChange={e => setReply(prev => ({ ...prev, [t.id]: e.target.value }))} 
+                      className="flex-grow p-2 bg-[var(--color-bg-secondary)] border rounded text-sm focus:ring-2 focus:ring-[var(--color-brand-primary)] outline-none" 
+                    />
+                    <button 
+                      onClick={() => handleReply(t.id)} 
+                      className="p-2 bg-[var(--color-brand-primary)] text-white rounded hover:bg-[var(--color-brand-primary)]/90 transition-colors"
+                      title="Send Reply"
+                    >
+                      <MessageSquare size={16} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {loading ? (
@@ -162,13 +229,22 @@ export default function AdminDashboard() {
                   <div className="w-12 h-12 border border-[var(--color-brand-primary)]/20 rounded-full flex items-center justify-center text-[var(--color-brand-primary)] group-hover:bg-[var(--color-brand-primary)] group-hover:text-white transition-all duration-500">
                     <Activity size={18} strokeWidth={1.5} />
                   </div>
-                  <span className={`px-4 py-1.5 text-[9px] font-medium uppercase tracking-[0.2em] border ${
-                    app.status === 'confirmed' ? 'bg-green-500/5 text-green-700 border-green-500/20' :
-                    app.status === 'cancelled' ? 'bg-red-500/5 text-red-700 border-red-500/20' :
-                    'bg-[var(--color-brand-primary)]/5 text-[var(--color-brand-primary)] border-[var(--color-brand-primary)]/20'
-                  }`}>
-                    {app.status}
-                  </span>
+                  <div className="flex items-center gap-3">
+                    <span className={`px-4 py-1.5 text-[9px] font-medium uppercase tracking-[0.2em] border ${
+                      app.status === 'confirmed' ? 'bg-green-500/5 text-green-700 border-green-500/20' :
+                      app.status === 'cancelled' ? 'bg-red-500/5 text-red-700 border-red-500/20' :
+                      'bg-[var(--color-brand-primary)]/5 text-[var(--color-brand-primary)] border-[var(--color-brand-primary)]/20'
+                    }`}>
+                      {app.status}
+                    </span>
+                    <button 
+                      onClick={() => handleDelete(app.id)}
+                      className="text-red-400 hover:text-red-600 transition-colors p-1"
+                      title="Delete Booking"
+                    >
+                      <Trash2 size={16} strokeWidth={1.5} />
+                    </button>
+                  </div>
                 </div>
                 
                 <h3 className="text-xl font-serif text-[var(--color-text-primary)] mb-2 capitalize">{app.service} Dentistry</h3>

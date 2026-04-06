@@ -1,11 +1,10 @@
 import { Variants } from 'motion/react';
 
 export const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 40, filter: 'blur(10px)' },
+  hidden: { opacity: 0, y: 40 },
   visible: { 
     opacity: 1, 
     y: 0, 
-    filter: 'blur(0px)',
     transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
   }
 };
@@ -22,41 +21,37 @@ export const fadeInStagger: Variants = {
 };
 
 export const scaleIn: Variants = {
-  hidden: { opacity: 0, scale: 0.9, filter: 'blur(10px)' },
+  hidden: { opacity: 0, scale: 0.9 },
   visible: { 
     opacity: 1, 
     scale: 1, 
-    filter: 'blur(0px)',
     transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
   }
 };
 
 export const slideInLeft: Variants = {
-  hidden: { opacity: 0, x: -40, filter: 'blur(10px)' },
+  hidden: { opacity: 0, x: -40 },
   visible: { 
     opacity: 1, 
     x: 0, 
-    filter: 'blur(0px)',
     transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
   }
 };
 
 export const slideInRight: Variants = {
-  hidden: { opacity: 0, x: 40, filter: 'blur(10px)' },
+  hidden: { opacity: 0, x: 40 },
   visible: { 
     opacity: 1, 
     x: 0, 
-    filter: 'blur(0px)',
     transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
   }
 };
 
 export const revealOnScroll: Variants = {
-  hidden: { opacity: 0, y: 50, filter: 'blur(10px)' },
+  hidden: { opacity: 0, y: 50 },
   visible: { 
     opacity: 1, 
     y: 0, 
-    filter: 'blur(0px)',
     transition: { duration: 1, ease: [0.16, 1, 0.3, 1] }
   }
 };

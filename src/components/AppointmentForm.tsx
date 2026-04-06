@@ -79,7 +79,7 @@ export default function AppointmentForm() {
     <section id="appointment" className="py-32 bg-[var(--color-bg-secondary)] relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[var(--color-brand-primary)]/5 rounded-full blur-[120px]"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px]" style={{ background: 'radial-gradient(circle, rgba(197, 160, 89, 0.05) 0%, transparent 70%)' }}></div>
       </div>
 
       <div className="max-w-3xl mx-auto px-6 relative z-10">

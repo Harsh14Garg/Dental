@@ -316,8 +316,8 @@ export default function Hero() {
       </section>
 
       <section className="py-32 bg-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--color-brand-primary)]/[0.03] rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-[var(--color-brand-primary)]/[0.02] rounded-full blur-3xl" />
+        <div className="absolute top-0 right-0 w-96 h-96 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(197, 160, 89, 0.03) 0%, transparent 70%)' }} />
+        <div className="absolute bottom-0 left-0 w-64 h-64 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(197, 160, 89, 0.02) 0%, transparent 70%)' }} />
 
         <div className="container mx-auto px-6 relative">
           <div className="flex flex-col lg:flex-row items-center gap-24">

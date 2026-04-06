@@ -30,7 +30,7 @@ export default function About() {
                 referrerPolicy="no-referrer"
               />
             </div>
-            <div className="absolute -bottom-12 -right-12 w-72 h-72 bg-[var(--color-brand-primary)]/5 rounded-full -z-10 blur-3xl"></div>
+            <div className="absolute -bottom-12 -right-12 w-72 h-72 -z-10 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(197, 160, 89, 0.05) 0%, transparent 70%)' }}></div>
             
             <div className="absolute top-1/2 -right-12 transform -translate-y-1/2 hidden xl:block">
               <div className="vertical-text text-[10px] uppercase tracking-[0.5em] text-[var(--color-brand-primary)] font-medium opacity-70 rotate-180">
@@ -55,13 +55,24 @@ export default function About() {
               </p>
               
               <div className="mb-10 p-6 border-l-2 border-[var(--color-brand-primary)] bg-[var(--color-brand-primary)]/5">
-                <h3 className="text-xl font-serif text-[var(--color-text-primary)] mb-2">Credentials & Expertise</h3>
-                <ul className="text-sm text-[var(--color-text-secondary)] space-y-2">
-                  <li>• BDS, MDS (Prosthodontics & Implantology)</li>
-                  <li>• Fellow of International Congress of Oral Implantologists (FICOI)</li>
-                  <li>• 12+ Years of Clinical Excellence</li>
-                  <li>• Specialized in Full-Mouth Rehabilitation</li>
-                </ul>
+                <h3 className="text-xl font-serif text-[var(--color-text-primary)] mb-4">Dr. Neeraj Agrawal - Credentials & Expertise</h3>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <ul className="text-sm text-[var(--color-text-secondary)] space-y-2">
+                    <li className="font-semibold text-[var(--color-text-primary)]">Qualifications:</li>
+                    <li>• MDS, MISOI, IAWDC, FAGE</li>
+                    <li>• Gold Medalist</li>
+                  </ul>
+                  <ul className="text-sm text-[var(--color-text-secondary)] space-y-2">
+                    <li className="font-semibold text-[var(--color-text-primary)]">Specializations:</li>
+                    <li>• Periodontist</li>
+                    <li>• Oral Implantologist</li>
+                  </ul>
+                </div>
+                <div className="mt-4 text-sm text-[var(--color-text-secondary)]">
+                  <p>• Ex. Resident: Faculty of Dental Science (IMS, BHU)</p>
+                  <p>• Formerly at: Patna Dental College & Hospital, Patna</p>
+                  <p>• International Associate: World Dental Council</p>
+                </div>
               </div>
 
               <p className="text-lg text-[var(--color-text-secondary)] mb-10 leading-relaxed font-light">

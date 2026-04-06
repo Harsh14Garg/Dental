@@ -77,6 +77,47 @@
         }
       },
       "required": ["displayName", "email", "role"]
+    },
+    "Testimonial": {
+      "title": "Testimonial",
+      "description": "A customer testimonial.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the person who gave the testimonial."
+        },
+        "service": {
+          "type": "string",
+          "description": "Service provided to the person."
+        },
+        "content": {
+          "type": "string",
+          "description": "The testimonial content."
+        },
+        "rating": {
+          "type": "number",
+          "description": "Rating from 1 to 5."
+        },
+        "image": {
+          "type": "string",
+          "description": "URL of the testimonial image."
+        },
+        "userId": {
+          "type": "string",
+          "description": "The UID of the user who created the testimonial."
+        },
+        "reply": {
+          "type": "string",
+          "description": "Admin reply to the testimonial."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the testimonial was created."
+        }
+      },
+      "required": ["name", "content", "rating", "createdAt", "userId", "service"]
     }
   },
   "firestore": {
@@ -87,6 +128,10 @@
     "/users/{userId}": {
       "schema": "User",
       "description": "Collection of registered users."
+    },
+    "/testimonials/{testimonialId}": {
+      "schema": "Testimonial",
+      "description": "Collection of customer testimonials."
     }
   }
 }

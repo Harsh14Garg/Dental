@@ -13,7 +13,8 @@ import {
   doc, 
   getDoc, 
   setDoc, 
-  getDocFromServer 
+  getDocFromServer,
+  deleteDoc
 } from 'firebase/firestore';
 import firebaseConfig from '../firebase-applet-config.json';
 
@@ -33,15 +34,46 @@ export enum OperationType {
 }
 
 // --- Error Handling ---
+export interface FirestoreErrorInfo {
+  error: string;
+  operationType: OperationType;
+  path: string | null;
+  authInfo: {
+    userId?: string;
+    email?: string | null;
+    emailVerified?: boolean;
+    isAnonymous?: boolean;
+    tenantId?: string | null;
+    providerInfo: {
+      providerId: string;
+      displayName: string | null;
+      email: string | null;
+      photoUrl: string | null;
+    }[];
+  }
+}
+
 export function handleFirestoreError(error: unknown, operationType: OperationType, path: string | null) {
-  const errInfo = {
+  const errInfo: FirestoreErrorInfo = {
     error: error instanceof Error ? error.message : String(error),
-    userId: auth.currentUser?.uid,
+    authInfo: {
+      userId: auth.currentUser?.uid,
+      email: auth.currentUser?.email,
+      emailVerified: auth.currentUser?.emailVerified,
+      isAnonymous: auth.currentUser?.isAnonymous,
+      tenantId: auth.currentUser?.tenantId,
+      providerInfo: auth.currentUser?.providerData.map(provider => ({
+        providerId: provider.providerId,
+        displayName: provider.displayName,
+        email: provider.email,
+        photoUrl: provider.photoURL
+      })) || []
+    },
     operationType,
     path
   };
   console.error('Firestore Error: ', JSON.stringify(errInfo));
-  throw new Error("Database operation failed. Please try again.");
+  throw new Error(JSON.stringify(errInfo));
 }
 
 // --- Authentication (Admin Logic Included) ---
@@ -51,20 +83,30 @@ export const signInWithGoogle = async () => {
     const user = result.user;
     
     const userRef = doc(db, 'users', user.uid);
-    const userSnap = await getDoc(userRef);
+    let userSnap;
+    try {
+      userSnap = await getDoc(userRef);
+    } catch (error) {
+      handleFirestoreError(error, OperationType.GET, `users/${user.uid}`);
+      return user; // fallback
+    }
     
     // Check if user is the Admin (h14agr@gmail.com)
     const isAdmin = user.email === 'h14agr@gmail.com';
     
-    if (!userSnap.exists()) {
-      await setDoc(userRef, {
-        displayName: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL,
-        role: isAdmin ? 'admin' : 'patient'
-      });
-    } else if (isAdmin && userSnap.data().role !== 'admin') {
-      await setDoc(userRef, { role: 'admin' }, { merge: true });
+    try {
+      if (!userSnap.exists()) {
+        await setDoc(userRef, {
+          displayName: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+          role: isAdmin ? 'admin' : 'patient'
+        });
+      } else if (isAdmin && userSnap.data().role !== 'admin') {
+        await setDoc(userRef, { role: 'admin' }, { merge: true });
+      }
+    } catch (error) {
+      handleFirestoreError(error, OperationType.WRITE, `users/${user.uid}`);
     }
     
     return user;
@@ -129,6 +171,15 @@ export const bookAppointment = async (data: Omit<AppointmentData, 'status' | 'cr
 
   } catch (error) {
     handleFirestoreError(error, OperationType.WRITE, path);
+  }
+};
+
+export const deleteAppointment = async (id: string) => {
+  const path = `appointments/${id}`;
+  try {
+    await deleteDoc(doc(db, 'appointments', id));
+  } catch (error) {
+    handleFirestoreError(error, OperationType.DELETE, path);
   }
 };
 

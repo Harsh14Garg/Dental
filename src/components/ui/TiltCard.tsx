@@ -92,8 +92,7 @@ export function TiltCard({
           animate={{ opacity: isHovered ? 1 : 0, scale: isHovered ? 1.02 : 1 }}
           transition={{ duration: 0.3 }}
           style={{
-            background: `radial-gradient(circle at 50% 50%, ${glowColor}, transparent 60%)`,
-            filter: 'blur(20px)',
+            background: `radial-gradient(circle at 50% 50%, ${glowColor}, transparent 70%)`,
           }}
         />
 

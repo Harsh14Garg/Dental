@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'motion/react';
 import { Menu, X, Calendar, LogIn, User, LogOut, Shield } from 'lucide-react';
-import { auth, signInWithGoogle, logout, db } from "../../firebase";
+import { auth, signInWithGoogle, logout, db, handleFirestoreError, OperationType } from "../../firebase";
 import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
 import { doc, onSnapshot } from 'firebase/firestore';
 import Magnetic from '../ui/Magnetic';
@@ -36,7 +36,10 @@ export default function Navbar() {
       if (u) {
         unsubDoc = onSnapshot(doc(db, 'users', u.uid), (d) => {
           setIsAdmin(d.exists() && d.data().role === 'admin');
-        }, () => setIsAdmin(false));
+        }, (error) => {
+          setIsAdmin(false);
+          handleFirestoreError(error, OperationType.GET, `users/${u.uid}`);
+        });
       } else {
         setIsAdmin(false);
         unsubDoc?.();
@@ -178,7 +181,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.4, ease: easings.smooth }}
-            className="md:hidden absolute top-full left-0 right-0 bg-white/98 backdrop-blur-xl border-t overflow-hidden"
+            className="md:hidden absolute top-full left-0 right-0 bg-white border-t overflow-hidden"
             style={{ borderColor: 'rgba(26,26,26,0.05)' }}
           >
             <div className="py-6 px-6 flex flex-col gap-4">
