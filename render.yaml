@@ -3,7 +3,7 @@ services:
     name: de-dental-square
     env: node
     plan: free
-    buildCommand: npm install --production=false && npm run build
+    buildCommand: npm install && npm install @tailwindcss/vite --save-dev && npm run build
     startCommand: npm start
     envVars:
       - key: NODE_ENV
