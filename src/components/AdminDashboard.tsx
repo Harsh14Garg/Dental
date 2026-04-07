@@ -26,6 +26,7 @@ interface Testimonial {
   rating: number;
   image: string;
   reply?: string;
+  hidden?: boolean;
 }
 
 export default function AdminDashboard() {
@@ -169,9 +170,19 @@ export default function AdminDashboard() {
                     <h4 className="font-medium text-[var(--color-text-primary)]">{t.name}</h4>
                     <p className="text-xs text-[var(--color-brand-primary)] uppercase tracking-widest">{t.service}</p>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <Star size={14} className="fill-[var(--color-brand-primary)] text-[var(--color-brand-primary)]" />
-                    <span className="text-sm font-medium">{t.rating}</span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={async () => {
+                        await updateDoc(doc(db, 'testimonials', t.id), { hidden: !t.hidden });
+                      }}
+                      className={`text-xs px-2 py-1 rounded ${t.hidden ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}
+                    >
+                      {t.hidden ? 'Hidden' : 'Visible'}
+                    </button>
+                    <div className="flex items-center gap-1">
+                      <Star size={14} className="fill-[var(--color-brand-primary)] text-[var(--color-brand-primary)]" />
+                      <span className="text-sm font-medium">{t.rating}</span>
+                    </div>
                   </div>
                 </div>
                 <p className="text-sm text-gray-600 mb-4">{t.content}</p>

@@ -36,7 +36,7 @@ export default function TestimonialForm() {
         service,
         content,
         rating: Number(rating),
-        image: image || 'https://picsum.photos/seed/user/100/100',
+        image: image || auth.currentUser?.photoURL || 'https://picsum.photos/seed/user/100/100',
         createdAt: serverTimestamp(),
         userId: auth.currentUser.uid
       });

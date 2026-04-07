@@ -20,7 +20,7 @@ service cloud.firestore {
     }
 
     match /testimonials/{testimonialId} {
-      allow read: if true;
+      allow read: if resource.data.hidden != true || isAdmin();
       allow create: if isAuthenticated();
       allow update: if isAdmin();
       allow delete: if isAdmin();

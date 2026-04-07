@@ -54,6 +54,7 @@ export interface FirestoreErrorInfo {
 }
 
 export function handleFirestoreError(error: unknown, operationType: OperationType, path: string | null) {
+  console.trace('Firestore Error Trace:');
   const errInfo: FirestoreErrorInfo = {
     error: error instanceof Error ? error.message : String(error),
     authInfo: {
@@ -111,7 +112,10 @@ export const signInWithGoogle = async () => {
     
     return user;
   } catch (error: any) {
-    if (error?.code === 'auth/popup-closed-by-user') return null;
+    if (error?.code === 'auth/popup-closed-by-user' || error?.code === 'auth/cancelled-popup-request') return null;
+    if (error?.code === 'auth/popup-blocked') {
+      throw new Error('Popup blocked. Please allow popups for this site or open the app in a new tab.');
+    }
     console.error("Error signing in with Google", error);
     throw error;
   }
@@ -179,6 +183,18 @@ export const deleteAppointment = async (id: string) => {
   try {
     await deleteDoc(doc(db, 'appointments', id));
   } catch (error) {
+    handleFirestoreError(error, OperationType.DELETE, path);
+  }
+};
+
+export const deleteTestimonial = async (id: string) => {
+  console.log("firebase.ts: Attempting to delete testimonial:", id);
+  const path = `testimonials/${id}`;
+  try {
+    await deleteDoc(doc(db, 'testimonials', id));
+    console.log("firebase.ts: Successfully deleted testimonial:", id);
+  } catch (error) {
+    console.error("firebase.ts: Delete error:", error);
     handleFirestoreError(error, OperationType.DELETE, path);
   }
 };

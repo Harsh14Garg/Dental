@@ -48,8 +48,16 @@ export default function Navbar() {
     return () => { unsubAuth(); unsubDoc?.(); };
   }, []);
 
+  const [loginError, setLoginError] = useState<string | null>(null);
+
   const handleLogin = async () => { 
-    try { await signInWithGoogle(); } catch (e) { console.error(e); } 
+    setLoginError(null);
+    try { 
+      await signInWithGoogle(); 
+    } catch (e: any) { 
+      console.error(e); 
+      setLoginError(e.message || "Failed to sign in.");
+    } 
   };
   
   const handleLogout = async () => { 
@@ -69,6 +77,14 @@ export default function Navbar() {
         isScrolled ? 'glass-nav-scrolled py-3' : 'bg-transparent py-5'
       }`}
     >
+      {loginError && (
+        <div className="absolute top-full left-0 right-0 bg-red-50 text-red-600 p-4 text-center text-xs font-medium border-b border-red-100">
+          {loginError}
+          {loginError.includes('new tab') && (
+            <a href={window.location.href} target="_blank" rel="noopener noreferrer" className="ml-2 underline font-bold">Open in new tab</a>
+          )}
+        </div>
+      )}
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between gap-4 lg:gap-8">
         <Magnetic>
           <Link to="/" className="flex items-center gap-4 group flex-shrink-0">
