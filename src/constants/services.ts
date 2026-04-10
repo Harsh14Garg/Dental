@@ -1,8 +1,4 @@
 import { Sparkles, HeartPulse, ShieldCheck, Microscope, Smile, Activity } from 'lucide-react';
-import orthodonticsImage from '../assets/orthodontics.jpg';
-import oralSurgeryImage from '../assets/oral-surgery.webp';
-import pediatricCareImage from '../assets/pediatric-care.jpg';
-import emergencyCareImage from '../assets/emergency-care.jpg';
 
 export const services = [
   { 
@@ -42,7 +38,7 @@ export const services = [
     longDescription: "Achieve a straighter, healthier smile with our orthodontic treatments. We offer both traditional braces and modern clear aligner solutions tailored to your specific needs, focusing on both aesthetics and functionality.",
     icon: Activity, 
     color: "from-blue-500/10 to-blue-600/5",
-    image: orthodonticsImage,
+    image: "/orthodontics.jpg",
     benefits: ["Traditional braces", "Clear aligners", "Bite correction", "Improved oral function"],
     process: ["Digital Scan", "Treatment Plan", "Fitting", "Regular Adjustments"],
     faq: [
@@ -57,7 +53,7 @@ export const services = [
     longDescription: "Our skilled oral surgeons provide expert care for complex dental procedures, including wisdom teeth extractions, dental implants, and corrective jaw surgeries, all in a comfortable environment with advanced sedation options.",
     icon: Microscope, 
     color: "from-emerald-500/10 to-emerald-600/5",
-    image: oralSurgeryImage,
+    image: "/oral-surgery.webp",
     benefits: ["Wisdom teeth removal", "Dental implants", "Corrective jaw surgery", "Bone grafting"],
     process: ["Pre-surgical Assessment", "Sedation Planning", "Procedure", "Post-op Care"],
     faq: [
@@ -72,7 +68,7 @@ export const services = [
     longDescription: "We provide a welcoming and gentle environment for children's dental care. Our focus is on making every visit positive, educational, and comfortable for your little ones, setting them up for a lifetime of good oral health.",
     icon: Smile, 
     color: "from-purple-500/10 to-purple-600/5",
-    image: pediatricCareImage,
+    image: "/pediatric-care.jpg",
     benefits: ["Child-friendly environment", "Preventative care", "Education", "Early intervention"],
     process: ["Friendly Introduction", "Gentle Exam", "Cleaning & Fluoride", "Education"],
     faq: [
@@ -87,7 +83,7 @@ export const services = [
     longDescription: "Dental emergencies can happen unexpectedly. We offer rapid response and expert care to alleviate pain and address urgent dental issues promptly, ensuring you get the care you need when it matters most.",
     icon: ShieldCheck, 
     color: "from-red-500/10 to-red-600/5",
-    image: emergencyCareImage,
+    image: "/emergency-care.jpg",
     benefits: ["Same-day appointments", "Pain relief", "Urgent care", "Expert diagnosis"],
     process: ["Immediate Triage", "Urgent Assessment", "Pain Management", "Definitive Treatment"],
     faq: [
