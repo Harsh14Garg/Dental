@@ -1,6 +1,5 @@
 import express from "express";
 import path from "path";
-import nodemailer from "nodemailer";
 
 async function startServer() {
   const app = express();
@@ -12,32 +11,41 @@ async function startServer() {
 
   app.post("/api/send-email", async (req, res) => {
     const { to, subject, html } = req.body;
-    const appPassword = process.env.GMAIL_APP_PASSWORD;
+    const apiKey = process.env.BREVO_API_KEY;
     
     // ⚡️ SPEED PATCH: Success response first!
     res.status(200).json({ success: true });
 
-    if (!appPassword) return;
-
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'h14agr@gmail.com',
-        pass: appPassword
-      }
-    });
+    if (!apiKey) {
+      console.error("Missing BREVO_API_KEY environment variable");
+      return;
+    }
 
     try {
       console.log(`Background sending to: ${to}`);
-      await transporter.sendMail({
-        from: '"De Dental Square" <h14agr@gmail.com>',
-        to,
-        subject,
-        html
+      const response = await fetch("https://api.brevo.com/v3/smtp/email", {
+        method: "POST",
+        headers: {
+          "accept": "application/json",
+          "api-key": apiKey,
+          "content-type": "application/json"
+        },
+        body: JSON.stringify({
+          sender: { name: "De Dental Square", email: "h14agr@gmail.com" },
+          to: [{ email: to }],
+          subject: subject,
+          htmlContent: html
+        })
       });
-      console.log("✅ Mail Sent!");
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("❌ Email failed:", errorData);
+      } else {
+        console.log("✅ Mail Sent via Brevo API!");
+      }
     } catch (err) {
-      console.error("❌ Email failed:", err);
+      console.error("❌ Email request failed:", err);
     }
   });
 
