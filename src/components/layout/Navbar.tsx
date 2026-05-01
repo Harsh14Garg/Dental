@@ -1,21 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'motion/react';
-import { Menu, X, Calendar, LogIn, User, LogOut, Shield } from 'lucide-react';
+import { Menu, X, Calendar, LogIn, User, LogOut, Shield, Sun, Moon } from 'lucide-react';
 import { auth, signInWithGoogle, logout, db, handleFirestoreError, OperationType } from "../../firebase";
 import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
 import { doc, onSnapshot } from 'firebase/firestore';
-import Magnetic from '../ui/Magnetic';
-
-const easings = {
-  smooth: [0.16, 1, 0.3, 1] as const,
-};
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [user, setUser] = useState<FirebaseUser | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true); // Default to dark as per :root
   const { scrollY } = useScroll();
   const location = useLocation();
   const navigate = useNavigate();
@@ -28,6 +24,15 @@ export default function Navbar() {
   ];
 
   useMotionValueEvent(scrollY, 'change', (v) => setIsScrolled(v > 50));
+
+  useEffect(() => {
+    // Theme toggle logic
+    if (isDarkMode) {
+      document.documentElement.classList.remove('light');
+    } else {
+      document.documentElement.classList.add('light');
+    }
+  }, [isDarkMode]);
 
   useEffect(() => {
     let unsubDoc: (() => void) | undefined;
@@ -72,173 +77,168 @@ export default function Navbar() {
     <motion.header
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: easings.smooth }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled ? 'glass-nav-scrolled py-3' : 'bg-transparent py-5'
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className={`fixed top-0 left-0 right-0 z-50 h-[72px] transition-all duration-500 font-['Inter'] flex items-center ${
+        isScrolled ? 'glass-nav-scrolled' : 'glass-nav'
       }`}
     >
       {loginError && (
-        <div className="absolute top-full left-0 right-0 bg-red-50 text-red-600 p-4 text-center text-xs font-medium border-b border-red-100">
+        <div className="absolute top-full left-0 right-0 bg-[#EF4444]/10 text-[#EF4444] p-3 text-center text-xs font-medium border-b border-[#EF4444]/20 backdrop-blur-md">
           {loginError}
-          {loginError.includes('new tab') && (
-            <a href={window.location.href} target="_blank" rel="noopener noreferrer" className="ml-2 underline font-bold">Open in new tab</a>
-          )}
         </div>
       )}
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between gap-4 lg:gap-8">
-        <Magnetic>
-          <Link to="/" className="flex items-center gap-4 group flex-shrink-0">
-            <motion.div 
-              className="w-10 h-10 border border-[var(--color-brand-primary)] flex items-center justify-center text-[var(--color-brand-primary)] font-serif text-xl relative overflow-hidden"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-            >
-              D
-            </motion.div>
-            <div className="flex flex-col leading-tight">
-              <span className="font-serif text-xl tracking-wide text-[var(--color-text-primary)] group-hover:text-[var(--color-brand-primary)] transition-colors duration-300">
-                DE Dental Square
-              </span>
-              <span className="text-[10px] uppercase tracking-[0.3em] font-medium text-[var(--color-text-muted)] leading-[1.4]">
-                Center for Advanced<br />Dental Care
-              </span>
-            </div>
-          </Link>
-        </Magnetic>
-
-        <nav className="hidden md:flex items-center gap-6 lg:gap-10">
+      
+      <div className="max-w-[1280px] mx-auto px-6 h-full flex items-center justify-between gap-4">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-3 shrink-0 group">
+          <div className="w-[32px] h-[32px] border border-[var(--color-latte)]/20 group-hover:border-[var(--color-caramel)] transition-colors flex items-center justify-center rounded-sm">
+            <span className="text-[var(--color-caramel)] font-serif text-[18px]">D</span>
+          </div>
+          <div className="flex flex-col">
+            <span className="font-semibold text-[16px] text-[var(--color-cream)] leading-none mb-1">DE Dental Square</span>
+            <span className="text-[9px] uppercase tracking-[0.15em] text-[var(--color-text-muted)] leading-none">Center for Advanced Dental Care</span>
+          </div>
+        </Link>
+        {/* Center Nav Links */}
+        <nav className="hidden md:flex items-center gap-8">
           <AnimatePresence>
             {isAdmin && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-              >
-                <Link to="/admin" className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-brand-primary)] hover:opacity-70 transition-opacity">
+              <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }}>
+                <Link to="/admin" className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.15em] text-[var(--color-caramel)] hover:opacity-70 transition-opacity">
                   <Shield size={12} /> Admin
                 </Link>
               </motion.div>
             )}
           </AnimatePresence>
           
-          {links.map((link, index) => (
-            <motion.div
-              key={link.name}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 * index, ease: easings.smooth }}
+          {links.map((link) => (
+            <Link 
+              key={link.name} 
+              to={link.path} 
+              className="text-[13px] font-medium uppercase tracking-[0.06em] text-[var(--color-cream)] hover:text-[var(--color-caramel)] transition-colors relative py-2 group"
             >
-              <Link to={link.path} className="relative text-xs uppercase tracking-[0.15em] font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-brand-primary)] transition-colors duration-300 py-2">
-                {link.name}
-                {location.pathname === link.path && (
-                  <motion.div 
-                    layoutId="activeNav"
-                    className="absolute -bottom-1 left-0 right-0 h-[2px]"
-                    style={{ background: 'var(--color-brand-primary)' }}
-                    transition={{ duration: 0.3, ease: easings.smooth }}
-                  />
-                )}
-              </Link>
-            </motion.div>
+              {link.name}
+              {location.pathname === link.path && (
+                <motion.div 
+                  layoutId="activeNav"
+                  className="absolute -bottom-2 left-0 right-0 h-[2px] bg-[var(--color-caramel)]"
+                  initial={false}
+                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                />
+              )}
+            </Link>
           ))}
         </nav>
 
-        <div className="hidden md:flex items-center gap-6 lg:gap-8">
+        {/* Right Side */}
+        <div className="hidden md:flex items-center gap-6">
+          <button 
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className="p-2 rounded-full hover:bg-[var(--color-latte)]/10 text-[var(--color-cream)] transition-colors"
+            aria-label="Toggle theme"
+          >
+            {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+          
           <AnimatePresence mode="wait">
             {user ? (
-              <motion.div key="user" className="flex items-center gap-4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
-                <Link to="/my-appointments" className="flex items-center gap-2 text-xs uppercase tracking-[0.1em] font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-brand-primary)] transition-colors">
+              <motion.div key="user" className="flex items-center gap-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Link to="/my-appointments" className="flex items-center gap-2 text-[13px] font-medium text-[var(--color-cream)] hover:text-[var(--color-caramel)] transition-colors uppercase tracking-[0.06em]">
                   {user.photoURL ? (
-                    <motion.img src={user.photoURL} alt="" className="w-7 h-7 rounded-full border border-[var(--color-brand-primary)]/30" referrerPolicy="no-referrer" whileHover={{ scale: 1.1 }} />
+                    <img src={user.photoURL} alt="" className="w-6 h-6 rounded-full border border-[var(--color-latte)]/20" referrerPolicy="no-referrer" />
                   ) : (
-                    <User size={14} />
+                    <User size={16} />
                   )}
-                  <span className="hidden lg:inline">{user.displayName?.split(' ')[0]}</span>
+                  <span>{user.displayName?.split(' ')[0]}</span>
                 </Link>
-                <motion.button onClick={handleLogout} className="text-[var(--color-text-muted)] hover:text-red-400 transition-colors" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-                  <LogOut size={14} />
-                </motion.button>
+                <button onClick={handleLogout} className="text-[var(--color-text-muted)] hover:text-[#EF4444] transition-colors" aria-label="Logout">
+                  <LogOut size={16} />
+                </button>
               </motion.div>
             ) : (
-              <motion.button key="login" onClick={handleLogin} className="flex items-center gap-2 text-xs uppercase tracking-[0.1em] font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-brand-primary)] transition-colors" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <LogIn size={14} /> Login
+              <motion.button 
+                key="login" 
+                onClick={handleLogin} 
+                className="flex items-center gap-2 text-[13px] font-medium text-[var(--color-cream)] hover:text-[var(--color-caramel)] transition-colors uppercase tracking-[0.06em]"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              >
+                <LogIn size={16} /> Login
               </motion.button>
             )}
           </AnimatePresence>
 
-          <Magnetic>
-            <Link to="/appointment">
-              <motion.button whileHover={{ scale: 1.02, y: -2 }} whileTap={{ scale: 0.98 }} className="btn-primary flex items-center gap-2 px-6 py-3 text-xs">
-                <Calendar size={14} /> Book Now
-              </motion.button>
-            </Link>
-          </Magnetic>
+          <Link to="/appointment">
+            <button className="btn-primary px-6 py-3 flex items-center justify-center gap-2 text-[13px] uppercase">
+              <Calendar size={16} /> Book Now
+            </button>
+          </Link>
         </div>
 
-        <motion.button className="md:hidden text-[var(--color-text-primary)] p-2 relative" onClick={() => setIsOpen(!isOpen)} whileTap={{ scale: 0.95 }}>
+        {/* Mobile Toggle */}
+        <button className="md:hidden text-[var(--color-cream)] p-2" onClick={() => setIsOpen(!isOpen)}>
           <AnimatePresence mode="wait">
-            {isOpen ? (
-              <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
-                <X size={24} strokeWidth={1.5} />
-              </motion.div>
-            ) : (
-              <motion.div key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.2 }}>
-                <Menu size={24} strokeWidth={1.5} />
-              </motion.div>
-            )}
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
           </AnimatePresence>
-        </motion.button>
+        </button>
       </div>
 
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.4, ease: easings.smooth }}
-            className="md:hidden absolute top-full left-0 right-0 bg-white border-t overflow-hidden"
-            style={{ borderColor: 'rgba(26,26,26,0.05)' }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden absolute top-full left-0 right-0 bg-[var(--color-espresso)] border-t border-[var(--color-latte)]/10 overflow-hidden shadow-xl"
           >
-            <div className="py-6 px-6 flex flex-col gap-4">
+            <div className="py-6 px-6 flex flex-col gap-2">
+              <button 
+                onClick={() => setIsDarkMode(!isDarkMode)}
+                className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.15em] text-[var(--color-cream)] p-3 mb-2 bg-[var(--color-latte)]/10 rounded-lg"
+              >
+                {isDarkMode ? <Sun size={16} /> : <Moon size={16} />} {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+              </button>
+
               {isAdmin && (
-                <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                  <Link to="/admin" onClick={() => setIsOpen(false)} className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-brand-primary)]">
-                    <Shield size={14} /> Admin Panel
-                  </Link>
-                </motion.div>
+                <Link to="/admin" onClick={() => setIsOpen(false)} className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.15em] text-[var(--color-caramel)] p-3 mb-2 bg-[var(--color-caramel)]/5 rounded-lg">
+                  <Shield size={16} /> Admin Panel
+                </Link>
               )}
               
-              {links.map((l, i) => (
-                <motion.div key={l.name} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }}>
-                  <Link to={l.path} onClick={() => setIsOpen(false)} className="text-sm font-medium uppercase tracking-[0.15em] py-3 border-b text-[var(--color-text-secondary)] hover:text-[var(--color-brand-primary)] transition-colors" style={{ borderColor: 'rgba(26,26,26,0.05)' }}>
-                    {l.name}
-                  </Link>
-                </motion.div>
+              {links.map((link) => (
+                <Link 
+                  key={link.name}
+                  to={link.path} 
+                  onClick={() => setIsOpen(false)} 
+                  className="text-[14px] font-medium uppercase tracking-[0.1em] py-4 border-b border-[var(--color-latte)]/10 text-[var(--color-cream)] hover:text-[var(--color-caramel)] transition-colors"
+                >
+                  {link.name}
+                </Link>
               ))}
               
-              <div className="pt-4 space-y-4">
+              <div className="pt-6 space-y-4">
                 {user ? (
                   <div className="space-y-4">
-                    <Link to="/my-appointments" onClick={() => setIsOpen(false)} className="flex items-center gap-4">
-                      <img src={user.photoURL || ''} alt="" className="w-10 h-10 rounded-full" referrerPolicy="no-referrer" />
+                    <Link to="/my-appointments" onClick={() => setIsOpen(false)} className="flex items-center gap-3">
+                      <img src={user.photoURL || ''} alt="" className="w-10 h-10 rounded-full border border-[var(--color-latte)]/20" referrerPolicy="no-referrer" />
                       <div>
-                        <div className="font-serif text-lg text-[var(--color-text-primary)]">{user.displayName}</div>
-                        <div className="text-[10px] text-[var(--color-brand-primary)] uppercase tracking-[0.2em]">My Appointments</div>
+                        <div className="font-semibold text-[15px] text-[var(--color-cream)]">{user.displayName}</div>
+                        <div className="text-[11px] text-[var(--color-caramel)] uppercase tracking-[0.1em] font-medium">My Appointments &rarr;</div>
                       </div>
                     </Link>
-                    <button onClick={handleLogout} className="w-full flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-[0.1em] text-red-400 py-4 border border-red-200">
-                      <LogOut size={14} /> Logout
+                    <button onClick={handleLogout} className="w-full flex items-center justify-center gap-2 text-[13px] font-semibold uppercase tracking-[0.1em] text-[#EF4444] py-3 bg-[#EF4444]/10 rounded-lg">
+                      <LogOut size={16} /> Logout
                     </button>
                   </div>
                 ) : (
-                  <button onClick={handleLogin} className="w-full flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-[0.1em] py-4 border text-[var(--color-text-secondary)]" style={{ borderColor: 'rgba(26,26,26,0.1)' }}>
-                    <LogIn size={14} /> Login with Google
+                  <button onClick={handleLogin} className="w-full flex items-center justify-center gap-2 text-[13px] font-semibold uppercase tracking-[0.1em] py-3 bg-[var(--color-warmgray)] border border-[var(--color-latte)]/10 rounded-lg text-[var(--color-cream)]">
+                    <LogIn size={16} /> Login
                   </button>
                 )}
-                <Link to="/appointment" onClick={() => setIsOpen(false)}>
-                  <button className="btn-primary w-full py-4 flex items-center justify-center gap-2 text-sm">
-                    <Calendar size={14} /> Book Appointment
+                <Link to="/appointment" onClick={() => setIsOpen(false)} className="block w-full">
+                  <button className="btn-primary w-full py-3 flex items-center justify-center gap-2 text-[13px] uppercase">
+                    <Calendar size={16} /> Book Appointment
                   </button>
                 </Link>
               </div>

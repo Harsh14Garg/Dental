@@ -103,8 +103,9 @@ export default function AdminDashboard() {
       });
 
       // Send email notification
+      const baseUrl = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, '') || '';
       if (newStatus === 'confirmed') {
-        await fetch('/api/send-email', {
+        await fetch(`${baseUrl}/api/send-email`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -114,7 +115,7 @@ export default function AdminDashboard() {
           })
         });
       } else if (newStatus === 'cancelled') {
-        await fetch('/api/send-email', {
+        await fetch(`${baseUrl}/api/send-email`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -151,48 +152,48 @@ export default function AdminDashboard() {
   if (!user || !isAdmin) return null;
 
   return (
-    <section className="py-32 bg-[var(--color-bg-secondary)] relative" id="admin">
+    <section className="py-32 bg-[var(--color-warmgray)] relative" id="admin">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-16 gap-8">
           <motion.div variants={fadeInStagger} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <motion.h2 variants={fadeInUp} className="text-[var(--color-brand-primary)] font-medium tracking-[0.3em] uppercase text-[10px] mb-4">Admin Control Panel</motion.h2>
-            <motion.p variants={fadeInUp} className="text-4xl md:text-5xl font-serif text-[var(--color-text-primary)]">All <span className="italic text-[var(--color-brand-primary)]">Bookings</span></motion.p>
+            <motion.h2 variants={fadeInUp} className="text-[var(--color-bronze)] font-medium tracking-[0.3em] uppercase text-[10px] mb-4">Admin Control Panel</motion.h2>
+            <motion.p variants={fadeInUp} className="text-4xl md:text-5xl font-serif text-[var(--color-cream)]">All <span className="italic text-[var(--color-bronze)]">Bookings</span></motion.p>
           </motion.div>
         </div>
 
         <div className="mb-16">
-          <h3 className="text-2xl font-serif mb-8">Manage Testimonials</h3>
+          <h3 className="text-2xl font-serif mb-8 text-[var(--color-cream)]">Manage Testimonials</h3>
           <div className="grid md:grid-cols-2 gap-8">
             {testimonials.map(t => (
-              <div key={t.id} className="bg-[var(--color-bg-primary)] p-6 rounded-lg border border-[var(--color-brand-primary)]/10">
+              <div key={t.id} className="glass-card p-6 rounded-sm border border-[var(--color-bronze)]/10">
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h4 className="font-medium text-[var(--color-text-primary)]">{t.name}</h4>
-                    <p className="text-xs text-[var(--color-brand-primary)] uppercase tracking-widest">{t.service}</p>
+                    <h4 className="font-medium text-[var(--color-cream)]">{t.name}</h4>
+                    <p className="text-xs text-[var(--color-bronze)] uppercase tracking-widest">{t.service}</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <button
                       onClick={async () => {
                         await updateDoc(doc(db, 'testimonials', t.id), { hidden: !t.hidden });
                       }}
-                      className={`text-xs px-2 py-1 rounded ${t.hidden ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}
+                      className={`text-xs px-2 py-1 rounded ${t.hidden ? 'bg-red-900/30 text-red-400 border border-red-900/50' : 'bg-green-900/30 text-green-400 border border-green-900/50'}`}
                     >
                       {t.hidden ? 'Hidden' : 'Visible'}
                     </button>
                     <div className="flex items-center gap-1">
-                      <Star size={14} className="fill-[var(--color-brand-primary)] text-[var(--color-brand-primary)]" />
-                      <span className="text-sm font-medium">{t.rating}</span>
+                      <Star size={14} className="fill-[var(--color-bronze)] text-[var(--color-bronze)]" />
+                      <span className="text-sm font-medium text-[var(--color-cream)]">{t.rating}</span>
                     </div>
                   </div>
                 </div>
-                <p className="text-sm text-gray-600 mb-4">{t.content}</p>
+                <p className="text-sm text-[var(--color-latte)]/80 mb-4 font-light leading-relaxed">{t.content}</p>
                 
                 {/* Reply Section */}
-                <div className="mt-4 border-t border-[var(--color-brand-primary)]/10 pt-4">
+                <div className="mt-4 border-t border-[var(--color-bronze)]/10 pt-4">
                   {t.reply && (
                     <div className="mb-4">
-                      <p className="text-xs font-bold text-[var(--color-brand-primary)] uppercase tracking-wider mb-1">Admin Reply:</p>
-                      <p className="text-sm text-[var(--color-brand-primary)] italic">{t.reply}</p>
+                      <p className="text-xs font-bold text-[var(--color-bronze)] uppercase tracking-wider mb-1">Admin Reply:</p>
+                      <p className="text-sm text-[var(--color-bronze)] italic">{t.reply}</p>
                     </div>
                   )}
                   
@@ -202,11 +203,11 @@ export default function AdminDashboard() {
                       placeholder={t.reply ? "Update reply..." : "Reply to this testimonial..."} 
                       value={reply[t.id] || ''} 
                       onChange={e => setReply(prev => ({ ...prev, [t.id]: e.target.value }))} 
-                      className="flex-grow p-2 bg-[var(--color-bg-secondary)] border rounded text-sm focus:ring-2 focus:ring-[var(--color-brand-primary)] outline-none" 
+                      className="flex-grow p-3 bg-[var(--color-espresso)] border border-[var(--color-bronze)]/20 rounded-sm text-sm text-[var(--color-cream)] focus:border-[var(--color-bronze)] outline-none" 
                     />
                     <button 
                       onClick={() => handleReply(t.id)} 
-                      className="p-2 bg-[var(--color-brand-primary)] text-white rounded hover:bg-[var(--color-brand-primary)]/90 transition-colors"
+                      className="p-3 bg-[var(--color-bronze)] text-[var(--color-espresso)] rounded-sm hover:bg-[var(--color-caramel)] transition-colors"
                       title="Send Reply"
                     >
                       <MessageSquare size={16} />
@@ -220,7 +221,7 @@ export default function AdminDashboard() {
 
         {loading ? (
           <div className="flex justify-center py-32">
-            <div className="w-12 h-12 border-2 border-[var(--color-brand-primary)] border-t-transparent rounded-full animate-spin"></div>
+            <div className="w-12 h-12 border-2 border-[var(--color-bronze)] border-t-transparent rounded-full animate-spin"></div>
           </div>
         ) : appointments.length > 0 ? (
           <motion.div 
@@ -234,23 +235,23 @@ export default function AdminDashboard() {
               <motion.div
                 key={app.id}
                 variants={fadeInUp}
-                className="bg-[var(--color-bg-primary)] p-8 border border-[var(--color-brand-primary)]/10 group hover:border-[var(--color-brand-primary)]/30 transition-all duration-500 flex flex-col"
+                className="glass-card p-8 border border-[var(--color-bronze)]/10 group hover:border-[var(--color-bronze)]/30 transition-all duration-500 flex flex-col rounded-sm"
               >
                 <div className="flex justify-between items-start mb-6">
-                  <div className="w-12 h-12 border border-[var(--color-brand-primary)]/20 rounded-full flex items-center justify-center text-[var(--color-brand-primary)] group-hover:bg-[var(--color-brand-primary)] group-hover:text-white transition-all duration-500">
+                  <div className="w-12 h-12 border border-[var(--color-bronze)]/20 rounded-full flex items-center justify-center text-[var(--color-bronze)] group-hover:bg-[var(--color-caramel)] group-hover:text-[var(--color-cream)] transition-all duration-500">
                     <Activity size={18} strokeWidth={1.5} />
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className={`px-4 py-1.5 text-[9px] font-medium uppercase tracking-[0.2em] border ${
-                      app.status === 'confirmed' ? 'bg-green-500/5 text-green-700 border-green-500/20' :
-                      app.status === 'cancelled' ? 'bg-red-500/5 text-red-700 border-red-500/20' :
-                      'bg-[var(--color-brand-primary)]/5 text-[var(--color-brand-primary)] border-[var(--color-brand-primary)]/20'
+                    <span className={`px-4 py-1.5 text-[9px] font-medium uppercase tracking-[0.2em] border rounded-sm ${
+                      app.status === 'confirmed' ? 'bg-green-500/10 text-green-400 border-green-500/20' :
+                      app.status === 'cancelled' ? 'bg-red-500/10 text-red-400 border-red-500/20' :
+                      'bg-[var(--color-bronze)]/10 text-[var(--color-bronze)] border-[var(--color-bronze)]/20'
                     }`}>
                       {app.status}
                     </span>
                     <button 
                       onClick={() => handleDelete(app.id)}
-                      className="text-red-400 hover:text-red-600 transition-colors p-1"
+                      className="text-red-400/70 hover:text-red-400 transition-colors p-1"
                       title="Delete Booking"
                     >
                       <Trash2 size={16} strokeWidth={1.5} />
@@ -258,44 +259,44 @@ export default function AdminDashboard() {
                   </div>
                 </div>
                 
-                <h3 className="text-xl font-serif text-[var(--color-text-primary)] mb-2 capitalize">{app.service} Dentistry</h3>
+                <h3 className="text-xl font-serif text-[var(--color-cream)] mb-2 capitalize">{app.service} Dentistry</h3>
                 
                 <div className="space-y-3 mb-6 flex-grow">
-                  <div className="flex items-center gap-3 text-[var(--color-text-secondary)] font-light">
-                    <UserIcon size={16} className="text-[var(--color-brand-primary)]" strokeWidth={1.5} />
+                  <div className="flex items-center gap-3 text-[var(--color-latte)]/80 font-light">
+                    <UserIcon size={16} className="text-[var(--color-bronze)]" strokeWidth={1.5} />
                     <span className="text-sm">{app.name}</span>
                   </div>
-                  <div className="flex items-center gap-3 text-[var(--color-text-secondary)] font-light">
-                    <Calendar size={16} className="text-[var(--color-brand-primary)]" strokeWidth={1.5} />
+                  <div className="flex items-center gap-3 text-[var(--color-latte)]/80 font-light">
+                    <Calendar size={16} className="text-[var(--color-bronze)]" strokeWidth={1.5} />
                     <span className="text-sm">{new Date(app.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                   </div>
-                  <div className="flex items-center gap-3 text-[var(--color-text-secondary)] font-light">
-                    <Clock size={16} className="text-[var(--color-brand-primary)]" strokeWidth={1.5} />
+                  <div className="flex items-center gap-3 text-[var(--color-latte)]/80 font-light">
+                    <Clock size={16} className="text-[var(--color-bronze)]" strokeWidth={1.5} />
                     <span className="text-sm">{app.time}</span>
                   </div>
-                  <div className="text-xs text-[var(--color-text-secondary)]/70 mt-2 space-y-1">
+                  <div className="text-xs text-[var(--color-latte)]/60 mt-2 space-y-1">
                     <p>Email: {app.email}</p>
                     <p>Phone: {app.phone}</p>
                     {app.message && (
-                      <div className="mt-4 p-3 bg-[var(--color-brand-primary)]/5 border border-[var(--color-brand-primary)]/10 rounded italic">
-                        <p className="text-[10px] uppercase tracking-wider mb-1 font-bold text-[var(--color-brand-primary)]">Message:</p>
-                        <p className="text-[var(--color-text-primary)] leading-relaxed">"{app.message}"</p>
+                      <div className="mt-4 p-3 bg-[var(--color-bronze)]/5 border border-[var(--color-bronze)]/10 rounded-sm italic">
+                        <p className="text-[10px] uppercase tracking-wider mb-1 font-bold text-[var(--color-bronze)]">Message:</p>
+                        <p className="text-[var(--color-cream)] leading-relaxed font-light">"{app.message}"</p>
                       </div>
                     )}
                   </div>
                 </div>
 
                 {app.status === 'pending' && (
-                  <div className="flex gap-3 pt-4 border-t border-[var(--color-brand-primary)]/10 mt-auto">
+                  <div className="flex gap-3 pt-4 border-t border-[var(--color-bronze)]/10 mt-auto">
                     <button 
                       onClick={() => updateStatus(app, 'confirmed')}
-                      className="flex-1 flex items-center justify-center gap-2 bg-green-500/5 hover:bg-green-500/10 text-green-700 py-3 text-[10px] font-medium uppercase tracking-[0.2em] transition-colors border border-green-500/20"
+                      className="flex-1 flex items-center justify-center gap-2 bg-green-500/10 hover:bg-green-500/20 text-green-400 py-3 text-[10px] font-medium uppercase tracking-[0.2em] transition-colors border border-green-500/20 rounded-sm"
                     >
                       <CheckCircle size={14} strokeWidth={1.5} /> Confirm
                     </button>
                     <button 
                       onClick={() => updateStatus(app, 'cancelled')}
-                      className="flex-1 flex items-center justify-center gap-2 bg-red-500/5 hover:bg-red-500/10 text-red-700 py-3 text-[10px] font-medium uppercase tracking-[0.2em] transition-colors border border-red-500/20"
+                      className="flex-1 flex items-center justify-center gap-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 py-3 text-[10px] font-medium uppercase tracking-[0.2em] transition-colors border border-red-500/20 rounded-sm"
                     >
                       <XCircle size={14} strokeWidth={1.5} /> Cancel
                     </button>
@@ -310,13 +311,13 @@ export default function AdminDashboard() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="bg-[var(--color-bg-primary)] p-20 text-center border border-[var(--color-brand-primary)]/10"
+            className="glass-card p-20 text-center border border-[var(--color-bronze)]/10"
           >
-            <div className="w-20 h-20 bg-[var(--color-brand-primary)]/5 text-[var(--color-text-muted)] rounded-full flex items-center justify-center mx-auto mb-8 border border-[var(--color-brand-primary)]/10">
+            <div className="w-20 h-20 bg-[var(--color-bronze)]/5 text-[var(--color-latte)]/40 rounded-full flex items-center justify-center mx-auto mb-8 border border-[var(--color-bronze)]/10">
               <AlertCircle size={32} strokeWidth={1.5} />
             </div>
-            <h3 className="text-2xl font-serif text-[var(--color-text-primary)] mb-4">No bookings found</h3>
-            <p className="text-[var(--color-text-secondary)] font-light max-w-md mx-auto">There are currently no appointments in the system.</p>
+            <h3 className="text-2xl font-serif text-[var(--color-cream)] mb-4">No bookings found</h3>
+            <p className="text-[var(--color-latte)]/80 font-light max-w-md mx-auto">There are currently no appointments in the system.</p>
           </motion.div>
         )}
       </div>

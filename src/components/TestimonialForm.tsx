@@ -55,33 +55,33 @@ export default function TestimonialForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-[var(--color-bg-secondary)] p-8 rounded-xl border border-[var(--color-brand-primary)]/10 shadow-lg">
-      <h3 className="text-2xl font-serif mb-6 text-[var(--color-text-primary)]">Share Your Experience</h3>
+    <form onSubmit={handleSubmit} className="glass-card p-8 md:p-12 mb-12">
+      <h3 className="text-2xl font-serif mb-8 text-[var(--color-cream)]">Share Your Experience</h3>
       
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-[var(--color-text-secondary)] mb-1">Full Name</label>
-        <input type="text" placeholder="Your Name" value={name} onChange={e => setName(e.target.value)} className="w-full p-3 bg-[var(--color-bg-primary)] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-brand-primary)] outline-none" required />
+      <div className="mb-8">
+        <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-[var(--color-latte)]/60 mb-2">Full Name</label>
+        <input type="text" placeholder="Your Name" value={name} onChange={e => setName(e.target.value)} className="input-luxury" required />
       </div>
 
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-[var(--color-text-secondary)] mb-1">Service Provided</label>
-        <input type="text" placeholder="e.g. Teeth Whitening" value={service} onChange={e => setService(e.target.value)} className="w-full p-3 bg-[var(--color-bg-primary)] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-brand-primary)] outline-none" required />
+      <div className="mb-8">
+        <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-[var(--color-latte)]/60 mb-2">Service Provided</label>
+        <input type="text" placeholder="e.g. Teeth Whitening" value={service} onChange={e => setService(e.target.value)} className="input-luxury" required />
       </div>
 
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-[var(--color-text-secondary)] mb-1">Your Review</label>
-        <textarea placeholder="Tell us about your experience..." value={content} onChange={e => setContent(e.target.value)} className="w-full p-3 bg-[var(--color-bg-primary)] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-brand-primary)] outline-none h-32" required />
+      <div className="mb-8">
+        <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-[var(--color-latte)]/60 mb-2">Your Review</label>
+        <textarea placeholder="Tell us about your experience..." value={content} onChange={e => setContent(e.target.value)} className="input-luxury min-h-[120px] resize-none" required />
       </div>
 
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-[var(--color-text-secondary)] mb-2">Rating</label>
-        <div className="flex gap-1" onMouseLeave={() => setHoverRating(0)}>
+      <div className="mb-8">
+        <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-[var(--color-latte)]/60 mb-4">Rating</label>
+        <div className="flex gap-2" onMouseLeave={() => setHoverRating(0)}>
           {[1, 2, 3, 4, 5].map((star) => (
             <Star
               key={star}
               size={32}
               className={`cursor-pointer transition-colors ${
-                star <= (hoverRating || rating) ? 'fill-[var(--color-brand-primary)] text-[var(--color-brand-primary)]' : 'text-gray-300'
+                star <= (hoverRating || rating) ? 'fill-[var(--color-bronze)] text-[var(--color-bronze)] scale-110' : 'text-[var(--color-latte)]/20 hover:text-[var(--color-bronze)]/50'
               }`}
               onClick={() => setRating(star)}
               onMouseEnter={() => setHoverRating(star)}
@@ -90,13 +90,13 @@ export default function TestimonialForm() {
         </div>
       </div>
 
-      <div className="mb-6">
-        <label className="block text-sm font-medium text-[var(--color-text-secondary)] mb-1">Upload Photo</label>
-        <input type="file" accept="image/*" capture="environment" onChange={handleImageChange} className="w-full p-3 bg-[var(--color-bg-primary)] border border-gray-300 rounded-lg" />
-        {image && <img src={image} alt="Preview" className="mt-2 w-20 h-20 object-cover rounded-full" />}
+      <div className="mb-10">
+        <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-[var(--color-latte)]/60 mb-2">Upload Photo (Optional)</label>
+        <input type="file" accept="image/*" capture="environment" onChange={handleImageChange} className="w-full text-sm text-[var(--color-latte)]/80 file:mr-4 file:py-2 file:px-4 file:rounded-sm file:border-0 file:text-xs file:font-bold file:uppercase file:tracking-[0.1em] file:bg-[var(--color-bronze)]/10 file:text-[var(--color-bronze)] hover:file:bg-[var(--color-bronze)]/20 transition-all cursor-pointer" />
+        {image && <img src={image} alt="Preview" className="mt-4 w-20 h-20 object-cover rounded-full border border-[var(--color-bronze)]/30" />}
       </div>
 
-      <button type="submit" disabled={loading} className="w-full p-4 bg-[var(--color-brand-primary)] text-white rounded-lg font-medium hover:bg-[var(--color-brand-primary)]/90 transition-colors">
+      <button type="submit" disabled={loading} className="btn-primary w-full py-5 text-xs">
         {loading ? 'Submitting...' : 'Submit Testimonial'}
       </button>
     </form>

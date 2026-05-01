@@ -48,20 +48,20 @@ export default function AppointmentForm() {
 
   if (isSuccess) {
     return (
-      <section id="appointment" className="py-32 bg-[var(--color-bg-secondary)] relative overflow-hidden">
+      <section id="appointment" className="py-32 bg-[var(--color-warmgray)] relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <motion.div 
             variants={scaleIn}
             initial="hidden"
             animate="visible"
-            className="bg-[var(--color-bg-primary)] p-16 border border-[var(--color-brand-primary)]/20 text-center max-w-2xl mx-auto"
+            className="glass-card p-16 text-center max-w-2xl mx-auto border border-[var(--color-bronze)]/20"
           >
-            <div className="w-24 h-24 bg-[var(--color-brand-primary)]/5 text-[var(--color-brand-primary)] rounded-full flex items-center justify-center mx-auto mb-8 border border-[var(--color-brand-primary)]/20">
+            <div className="w-24 h-24 bg-[var(--color-bronze)]/5 text-[var(--color-bronze)] rounded-full flex items-center justify-center mx-auto mb-8 border border-[var(--color-bronze)]/20">
               <CheckCircle2 size={40} strokeWidth={1.5} />
             </div>
-            <h3 className="text-4xl font-serif text-[var(--color-text-primary)] mb-6">Request Received</h3>
-            <p className="text-lg text-[var(--color-text-secondary)] mb-10 font-light leading-relaxed">
-              Thank you for choosing <span className="text-[var(--color-text-primary)] font-medium">De Dental Square</span>. Our concierge will contact you shortly to finalize your appointment.
+            <h3 className="text-4xl font-serif text-[var(--color-cream)] mb-6">Request Received</h3>
+            <p className="text-lg text-[var(--color-latte)]/80 mb-10 font-light leading-relaxed">
+              Thank you for choosing <span className="text-[var(--color-cream)] font-medium">De Dental Square</span>. Our concierge will contact you shortly to finalize your appointment.
             </p>
             <button 
               onClick={() => setIsSuccess(false)}
@@ -76,10 +76,10 @@ export default function AppointmentForm() {
   }
 
   return (
-    <section id="appointment" className="py-32 bg-[var(--color-bg-secondary)] relative overflow-hidden">
+    <section id="appointment" className="py-32 bg-[var(--color-warmgray)] relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px]" style={{ background: 'radial-gradient(circle, rgba(197, 160, 89, 0.05) 0%, transparent 70%)' }}></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px]" style={{ background: 'radial-gradient(circle, color-mix(in srgb, var(--color-caramel) 5%, transparent) 0%, transparent 70%)' }}></div>
       </div>
 
       <div className="max-w-3xl mx-auto px-6 relative z-10">
@@ -91,13 +91,13 @@ export default function AppointmentForm() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <h2 className="text-[var(--color-brand-primary)] font-medium tracking-[0.3em] uppercase text-[10px] mb-6">
+            <h2 className="text-[var(--color-bronze)] font-medium tracking-[0.3em] uppercase text-[10px] mb-6">
               Reservations
             </h2>
-            <p className="text-5xl md:text-6xl font-serif text-[var(--color-text-primary)] mb-8 leading-[1.1]">
-              Begin Your <span className="italic text-[var(--color-brand-primary)]">Transformation</span>
+            <p className="text-5xl md:text-6xl font-serif text-[var(--color-cream)] mb-8 leading-[1.1]">
+              Begin Your <span className="italic text-[var(--color-bronze)]">Transformation</span>
             </p>
-            <p className="text-lg text-[var(--color-text-secondary)] mb-12 leading-relaxed font-light max-w-xl mx-auto">
+            <p className="text-lg text-[var(--color-latte)]/80 mb-12 leading-relaxed font-light max-w-xl mx-auto">
               Secure your private consultation today. Our elite team is ready to provide you with a bespoke dental experience.
             </p>
           </motion.div>
@@ -107,14 +107,14 @@ export default function AppointmentForm() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="bg-[var(--color-bg-primary)] px-10 pb-10 pt-6 sm:px-16 sm:pb-16 sm:pt-8 border border-[var(--color-brand-primary)]/10 shadow-xl"
+            className="glass-card px-10 pb-10 pt-6 sm:px-16 sm:pb-16 sm:pt-8 border border-[var(--color-bronze)]/10 shadow-warm"
           >
-            <h3 className="text-3xl font-serif text-[var(--color-text-primary)] mt-0 mb-32 text-center">Request Appointment</h3>
-            <form onSubmit={handleSubmit} className="space-y-16">
-              <div className="grid sm:grid-cols-2 gap-16">
+            <h3 className="text-3xl font-serif text-[var(--color-cream)] mt-0 mb-12 sm:mb-20 text-center">Request Appointment</h3>
+            <form onSubmit={handleSubmit} className="space-y-12 sm:space-y-16">
+              <div className="grid sm:grid-cols-2 gap-10 sm:gap-16">
                 <div className="space-y-3">
-                  <label className="text-xs uppercase tracking-[0.2em] font-medium text-[var(--color-text-secondary)] flex items-center gap-3">
-                    <User size={16} className="text-[var(--color-brand-primary)]" /> Full Name
+                  <label className="text-xs uppercase tracking-[0.2em] font-medium text-[var(--color-latte)]/80 flex items-center gap-3">
+                    <User size={16} className="text-[var(--color-bronze)]" /> Full Name
                   </label>
                   <input
                     required
@@ -122,13 +122,13 @@ export default function AppointmentForm() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full bg-transparent border-b border-[var(--color-brand-primary)]/30 px-0 py-5 text-[var(--color-text-primary)] focus:border-[var(--color-brand-primary)] outline-none transition-all placeholder:text-[var(--color-text-muted)] text-lg"
+                    className="input-luxury text-lg py-5"
                     placeholder="John Doe"
                   />
                 </div>
                 <div className="space-y-3">
-                  <label className="text-xs uppercase tracking-[0.2em] font-medium text-[var(--color-text-secondary)] flex items-center gap-3">
-                    <Mail size={16} className="text-[var(--color-brand-primary)]" /> Email Address
+                  <label className="text-xs uppercase tracking-[0.2em] font-medium text-[var(--color-latte)]/80 flex items-center gap-3">
+                    <Mail size={16} className="text-[var(--color-bronze)]" /> Email Address
                   </label>
                   <input
                     required
@@ -136,16 +136,16 @@ export default function AppointmentForm() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full bg-transparent border-b border-[var(--color-brand-primary)]/30 px-0 py-5 text-[var(--color-text-primary)] focus:border-[var(--color-brand-primary)] outline-none transition-all placeholder:text-[var(--color-text-muted)] text-lg"
+                    className="input-luxury text-lg py-5"
                     placeholder="john@example.com"
                   />
                 </div>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-16">
+              <div className="grid sm:grid-cols-2 gap-10 sm:gap-16">
                 <div className="space-y-3">
-                  <label className="text-xs uppercase tracking-[0.2em] font-medium text-[var(--color-text-secondary)] flex items-center gap-3">
-                    <Phone size={16} className="text-[var(--color-brand-primary)]" /> Phone Number
+                  <label className="text-xs uppercase tracking-[0.2em] font-medium text-[var(--color-latte)]/80 flex items-center gap-3">
+                    <Phone size={16} className="text-[var(--color-bronze)]" /> Phone Number
                   </label>
                   <input
                     required
@@ -155,35 +155,35 @@ export default function AppointmentForm() {
                     onChange={handleChange}
                     pattern="[0-9]{10}"
                     maxLength={10}
-                    className="w-full bg-transparent border-b border-[var(--color-brand-primary)]/30 px-0 py-5 text-[var(--color-text-primary)] focus:border-[var(--color-brand-primary)] outline-none transition-all placeholder:text-[var(--color-text-muted)] text-lg"
+                    className="input-luxury text-lg py-5"
                     placeholder="0000000000"
                   />
                 </div>
                 <div className="space-y-3">
-                  <label className="text-xs uppercase tracking-[0.2em] font-medium text-[var(--color-text-secondary)] flex items-center gap-3">
-                    <Send size={16} className="text-[var(--color-brand-primary)]" /> Service
+                  <label className="text-xs uppercase tracking-[0.2em] font-medium text-[var(--color-latte)]/80 flex items-center gap-3">
+                    <Send size={16} className="text-[var(--color-bronze)]" /> Service
                   </label>
                   <select
                     required
                     name="service"
                     value={formData.service}
                     onChange={handleChange}
-                    className="w-full bg-transparent border-b border-[var(--color-brand-primary)]/30 px-0 py-5 text-[var(--color-text-primary)] focus:border-[var(--color-brand-primary)] outline-none transition-all appearance-none cursor-pointer text-lg bg-[var(--color-bg-primary)]"
+                    className="input-luxury text-lg py-5 appearance-none cursor-pointer"
                   >
-                    <option value="" className="text-[var(--color-text-muted)]">Select a service</option>
-                    <option value="general">General Dentistry</option>
-                    <option value="cosmetic">Cosmetic Dentistry</option>
-                    <option value="orthodontics">Orthodontics</option>
-                    <option value="surgery">Oral Surgery</option>
-                    <option value="pediatric">Pediatric Care</option>
+                    <option value="" className="text-[var(--color-latte)]/40 bg-[var(--color-espresso)]">Select a service</option>
+                    <option value="general" className="bg-[var(--color-espresso)]">General Dentistry</option>
+                    <option value="cosmetic" className="bg-[var(--color-espresso)]">Cosmetic Dentistry</option>
+                    <option value="orthodontics" className="bg-[var(--color-espresso)]">Orthodontics</option>
+                    <option value="surgery" className="bg-[var(--color-espresso)]">Oral Surgery</option>
+                    <option value="pediatric" className="bg-[var(--color-espresso)]">Pediatric Care</option>
                   </select>
                 </div>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-16">
+              <div className="grid sm:grid-cols-2 gap-10 sm:gap-16">
                 <div className="space-y-3">
-                  <label className="text-xs uppercase tracking-[0.2em] font-medium text-[var(--color-text-secondary)] flex items-center gap-3">
-                    <Calendar size={16} className="text-[var(--color-brand-primary)]" /> Preferred Date
+                  <label className="text-xs uppercase tracking-[0.2em] font-medium text-[var(--color-latte)]/80 flex items-center gap-3">
+                    <Calendar size={16} className="text-[var(--color-bronze)]" /> Preferred Date
                   </label>
                   <input
                     required
@@ -191,12 +191,13 @@ export default function AppointmentForm() {
                     name="date"
                     value={formData.date}
                     onChange={handleChange}
-                    className="w-full bg-transparent border-b border-[var(--color-brand-primary)]/30 px-0 py-5 text-[var(--color-text-primary)] focus:border-[var(--color-brand-primary)] outline-none transition-all text-lg"
+                    className="input-luxury text-lg py-5"
+                    style={{ colorScheme: 'dark' }}
                   />
                 </div>
                 <div className="space-y-3">
-                  <label className="text-xs uppercase tracking-[0.2em] font-medium text-[var(--color-text-secondary)] flex items-center gap-3">
-                    <Clock size={16} className="text-[var(--color-brand-primary)]" /> Preferred Time
+                  <label className="text-xs uppercase tracking-[0.2em] font-medium text-[var(--color-latte)]/80 flex items-center gap-3">
+                    <Clock size={16} className="text-[var(--color-bronze)]" /> Preferred Time
                   </label>
                   <input
                     required
@@ -204,21 +205,22 @@ export default function AppointmentForm() {
                     name="time"
                     value={formData.time}
                     onChange={handleChange}
-                    className="w-full bg-transparent border-b border-[var(--color-brand-primary)]/30 px-0 py-5 text-[var(--color-text-primary)] focus:border-[var(--color-brand-primary)] outline-none transition-all text-lg"
+                    className="input-luxury text-lg py-5"
+                    style={{ colorScheme: 'dark' }}
                   />
                 </div>
               </div>
 
               <div className="space-y-3">
-                <label className="text-xs uppercase tracking-[0.2em] font-medium text-[var(--color-text-secondary)] flex items-center gap-3">
-                  <MessageSquare size={16} className="text-[var(--color-brand-primary)]" /> Message (Optional)
+                <label className="text-xs uppercase tracking-[0.2em] font-medium text-[var(--color-latte)]/80 flex items-center gap-3">
+                  <MessageSquare size={16} className="text-[var(--color-bronze)]" /> Message (Optional)
                 </label>
                 <textarea
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   rows={3}
-                  className="w-full bg-transparent border-b border-[var(--color-brand-primary)]/30 px-0 py-5 text-[var(--color-text-primary)] focus:border-[var(--color-brand-primary)] outline-none transition-all resize-none placeholder:text-[var(--color-text-muted)] text-lg"
+                  className="input-luxury text-lg py-5 resize-none min-h-[120px]"
                   placeholder="Tell us about your dental concerns..."
                 ></textarea>
               </div>
@@ -226,10 +228,10 @@ export default function AppointmentForm() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`btn-primary w-full py-4 flex items-center justify-center gap-3 text-xs ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                className={`btn-primary w-full py-5 flex items-center justify-center gap-3 text-xs ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
               >
                 {isSubmitting ? (
-                  <div className="w-5 h-5 border-2 border-[var(--color-bg-primary)] border-t-transparent rounded-full animate-spin"></div>
+                  <div className="w-5 h-5 border-2 border-[var(--color-espresso)] border-t-transparent rounded-full animate-spin"></div>
                 ) : (
                   <>
                     <Send size={14} />
@@ -241,22 +243,22 @@ export default function AppointmentForm() {
           </motion.div>
 
           <div className="grid sm:grid-cols-2 gap-10">
-            <motion.div variants={fadeInUp} className="flex items-center gap-6 justify-center bg-[var(--color-bg-primary)] p-8 border border-[var(--color-brand-primary)]/10">
-              <div className="w-14 h-14 border border-[var(--color-brand-primary)]/20 rounded-full flex items-center justify-center text-[var(--color-brand-primary)]">
+            <motion.div variants={fadeInUp} className="flex items-center gap-6 justify-center bg-[var(--color-espresso)] p-8 border border-[var(--color-bronze)]/10 rounded-sm">
+              <div className="w-14 h-14 border border-[var(--color-bronze)]/20 rounded-full flex items-center justify-center text-[var(--color-bronze)]">
                 <Phone size={20} strokeWidth={1.5} />
               </div>
               <div>
-                <div className="text-[9px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)] font-medium mb-1">Direct Line</div>
-                <div className="text-xl text-[var(--color-text-primary)] font-serif">+91 (555) 000-1234</div>
+                <div className="text-[9px] uppercase tracking-[0.2em] text-[var(--color-latte)]/60 font-medium mb-1">Direct Line</div>
+                <div className="text-xl text-[var(--color-cream)] font-serif">+91 (555) 000-1234</div>
               </div>
             </motion.div>
-            <motion.div variants={fadeInUp} className="flex items-center gap-6 justify-center bg-[var(--color-bg-primary)] p-8 border border-[var(--color-brand-primary)]/10">
-              <div className="w-14 h-14 border border-[var(--color-brand-primary)]/20 rounded-full flex items-center justify-center text-[var(--color-brand-primary)]">
+            <motion.div variants={fadeInUp} className="flex items-center gap-6 justify-center bg-[var(--color-espresso)] p-8 border border-[var(--color-bronze)]/10 rounded-sm">
+              <div className="w-14 h-14 border border-[var(--color-bronze)]/20 rounded-full flex items-center justify-center text-[var(--color-bronze)]">
                 <Mail size={20} strokeWidth={1.5} />
               </div>
               <div>
-                <div className="text-[9px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)] font-medium mb-1">Concierge</div>
-                <div className="text-xl text-[var(--color-text-primary)] font-serif">hello@dedentalsquare.com</div>
+                <div className="text-[9px] uppercase tracking-[0.2em] text-[var(--color-latte)]/60 font-medium mb-1">Concierge</div>
+                <div className="text-xl text-[var(--color-cream)] font-serif">hello@dedentalsquare.com</div>
               </div>
             </motion.div>
           </div>

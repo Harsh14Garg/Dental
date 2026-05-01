@@ -7,6 +7,7 @@ import SmoothScroll from './components/layout/SmoothScroll';
 import Preloader from './components/layout/Preloader';
 import { PageTransition } from './components/layout/PageTransition';
 import ScrollToTop from './components/layout/ScrollToTop';
+import ScrollProgress from './components/layout/ScrollProgress';
 
 const Hero = lazy(() => import('./components/Hero'));
 const About = lazy(() => import('./components/About'));
@@ -31,6 +32,7 @@ export default function App() {
 
   return (
     <Router>
+      <ScrollProgress />
       <ScrollToTop />
       <AnimatePresence mode="wait">
         {loading && <Preloader key="preloader" onComplete={() => setLoading(false)} />}
@@ -38,7 +40,7 @@ export default function App() {
 
       {!loading && (
         <SmoothScroll>
-          <div className="min-h-screen flex flex-col bg-[var(--color-bg-primary)] text-[var(--color-text-primary)] relative">
+          <div className="min-h-screen flex flex-col bg-[var(--color-espresso)] text-[var(--color-cream)] relative">
             <Navbar />
             
             <main className="flex-grow relative z-10">

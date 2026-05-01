@@ -1,9 +1,14 @@
 import { useRef, useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { motion, useMotionValue, useSpring } from 'motion/react';
 
 export default function Magnetic({ children }: { children: React.ReactElement }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springConfig = { stiffness: 150, damping: 15, mass: 0.1 };
+  const scaleX = useSpring(x, springConfig);
+  const scaleY = useSpring(y, springConfig);
+  
   const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
@@ -16,15 +21,15 @@ export default function Magnetic({ children }: { children: React.ReactElement })
     const { height, width, left, top } = ref.current!.getBoundingClientRect();
     const middleX = clientX - (left + width / 2);
     const middleY = clientY - (top + height / 2);
-    setPosition({ x: middleX * 0.2, y: middleY * 0.2 });
+    x.set(middleX * 0.2);
+    y.set(middleY * 0.2);
   };
 
   const reset = () => {
     if (isTouchDevice) return;
-    setPosition({ x: 0, y: 0 });
+    x.set(0);
+    y.set(0);
   };
-
-  const { x, y } = position;
 
   if (isTouchDevice) {
     return <>{children}</>;
@@ -35,8 +40,7 @@ export default function Magnetic({ children }: { children: React.ReactElement })
       ref={ref}
       onMouseMove={handleMouse}
       onMouseLeave={reset}
-      animate={{ x, y }}
-      transition={{ type: 'spring', stiffness: 150, damping: 15, mass: 0.1 }}
+      style={{ x: scaleX, y: scaleY }}
       data-magnetic="true"
     >
       {children}

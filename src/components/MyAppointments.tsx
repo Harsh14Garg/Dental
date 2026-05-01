@@ -59,7 +59,7 @@ export default function MyAppointments() {
   if (!user) return null;
 
   return (
-    <section className="py-32 bg-[var(--color-bg-secondary)] relative">
+    <section className="py-32 bg-[var(--color-warmgray)] relative min-h-screen">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-16 gap-8">
           <motion.div
@@ -70,15 +70,15 @@ export default function MyAppointments() {
           >
             <motion.h2 
               variants={fadeInUp}
-              className="text-[var(--color-brand-primary)] font-medium tracking-[0.3em] uppercase text-[10px] mb-4"
+              className="text-[var(--color-bronze)] font-medium tracking-[0.3em] uppercase text-[10px] mb-4"
             >
               Dashboard
             </motion.h2>
             <motion.p 
               variants={fadeInUp}
-              className="text-4xl md:text-5xl font-serif text-[var(--color-text-primary)]"
+              className="text-4xl md:text-5xl font-serif text-[var(--color-cream)]"
             >
-              My <span className="italic text-[var(--color-brand-primary)]">Appointments</span>
+              My <span className="italic text-[var(--color-bronze)]">Appointments</span>
             </motion.p>
           </motion.div>
           <motion.div
@@ -98,7 +98,7 @@ export default function MyAppointments() {
 
         {loading ? (
           <div className="flex justify-center py-32">
-            <div className="w-12 h-12 border-2 border-[var(--color-brand-primary)] border-t-transparent rounded-full animate-spin"></div>
+            <div className="w-12 h-12 border-2 border-[var(--color-bronze)] border-t-transparent rounded-full animate-spin"></div>
           </div>
         ) : appointments.length > 0 ? (
           <motion.div 
@@ -112,28 +112,28 @@ export default function MyAppointments() {
               <motion.div
                 key={app.id}
                 variants={fadeInUp}
-                className="bg-[var(--color-bg-primary)] p-8 border border-[var(--color-brand-primary)]/10 group hover:border-[var(--color-brand-primary)]/30 transition-all duration-500"
+                className="glass-card p-8 border border-[var(--color-bronze)]/10 group hover:border-[var(--color-bronze)]/30 transition-all duration-500 rounded-sm"
               >
                 <div className="flex justify-between items-start mb-8">
-                  <div className="w-12 h-12 border border-[var(--color-brand-primary)]/20 rounded-full flex items-center justify-center text-[var(--color-brand-primary)] group-hover:bg-[var(--color-brand-primary)] group-hover:text-white transition-all duration-500">
+                  <div className="w-12 h-12 border border-[var(--color-bronze)]/20 rounded-full flex items-center justify-center text-[var(--color-bronze)] group-hover:bg-[var(--color-caramel)] group-hover:text-[var(--color-cream)] transition-all duration-500">
                     <Activity size={18} strokeWidth={1.5} />
                   </div>
-                  <span className={`px-4 py-1.5 text-[9px] font-medium uppercase tracking-[0.2em] border ${
-                    app.status === 'confirmed' ? 'bg-green-500/5 text-green-700 border-green-500/20' :
-                    app.status === 'cancelled' ? 'bg-red-500/5 text-red-700 border-red-500/20' :
-                    'bg-[var(--color-brand-primary)]/5 text-[var(--color-brand-primary)] border-[var(--color-brand-primary)]/20'
+                  <span className={`px-4 py-1.5 text-[9px] font-medium uppercase tracking-[0.2em] border rounded-sm ${
+                    app.status === 'confirmed' ? 'bg-green-500/10 text-green-400 border-green-500/20' :
+                    app.status === 'cancelled' ? 'bg-red-500/10 text-red-400 border-red-500/20' :
+                    'bg-[var(--color-bronze)]/10 text-[var(--color-bronze)] border-[var(--color-bronze)]/20'
                   }`}>
                     {app.status}
                   </span>
                 </div>
-                <h3 className="text-2xl font-serif text-[var(--color-text-primary)] mb-6 capitalize">{app.service} Dentistry</h3>
+                <h3 className="text-2xl font-serif text-[var(--color-cream)] mb-6 capitalize">{app.service} Dentistry</h3>
                 <div className="space-y-4">
-                  <div className="flex items-center gap-4 text-[var(--color-text-secondary)] font-light">
-                    <Calendar size={16} className="text-[var(--color-brand-primary)]" strokeWidth={1.5} />
+                  <div className="flex items-center gap-4 text-[var(--color-latte)]/80 font-light">
+                    <Calendar size={16} className="text-[var(--color-bronze)]" strokeWidth={1.5} />
                     <span className="text-sm">{new Date(app.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
                   </div>
-                  <div className="flex items-center gap-4 text-[var(--color-text-secondary)] font-light">
-                    <Clock size={16} className="text-[var(--color-brand-primary)]" strokeWidth={1.5} />
+                  <div className="flex items-center gap-4 text-[var(--color-latte)]/80 font-light">
+                    <Clock size={16} className="text-[var(--color-bronze)]" strokeWidth={1.5} />
                     <span className="text-sm">{app.time}</span>
                   </div>
                 </div>
@@ -146,14 +146,14 @@ export default function MyAppointments() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="bg-[var(--color-bg-primary)] p-20 text-center border border-[var(--color-brand-primary)]/10"
+            className="glass-card p-20 text-center border border-[var(--color-bronze)]/10 rounded-sm"
           >
-            <div className="w-20 h-20 bg-[var(--color-brand-primary)]/5 text-[var(--color-text-muted)] rounded-full flex items-center justify-center mx-auto mb-8 border border-[var(--color-brand-primary)]/10">
+            <div className="w-20 h-20 bg-[var(--color-bronze)]/5 text-[var(--color-latte)]/40 rounded-full flex items-center justify-center mx-auto mb-8 border border-[var(--color-bronze)]/10">
               <AlertCircle size={32} strokeWidth={1.5} />
             </div>
-            <h3 className="text-2xl font-serif text-[var(--color-text-primary)] mb-4">No appointments found</h3>
-            <p className="text-[var(--color-text-secondary)] mb-10 font-light max-w-md mx-auto">You haven't booked any elite dental experiences yet. Start your journey to a masterpiece smile today!</p>
-            <Link to="/appointment" className="text-[var(--color-brand-primary)] font-medium uppercase tracking-[0.2em] text-[10px] hover:text-[var(--color-text-primary)] transition-colors">Book your first appointment</Link>
+            <h3 className="text-2xl font-serif text-[var(--color-cream)] mb-4">No appointments found</h3>
+            <p className="text-[var(--color-latte)]/80 mb-10 font-light max-w-md mx-auto">You haven't booked any elite dental experiences yet. Start your journey to a masterpiece smile today!</p>
+            <Link to="/appointment" className="text-[var(--color-bronze)] font-medium uppercase tracking-[0.2em] text-[10px] hover:text-[var(--color-cream)] transition-colors">Book your first appointment</Link>
           </motion.div>
         )}
       </div>

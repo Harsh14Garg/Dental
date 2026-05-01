@@ -25,7 +25,7 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[var(--color-brand-dark)] text-white"
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[var(--color-espresso)] text-[var(--color-cream)]"
       initial={{ y: 0 }}
       exit={{ y: '-100%', transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }}
     >
@@ -34,18 +34,18 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
           initial={{ y: 100 }}
           animate={{ y: 0 }}
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-          className="text-4xl font-serif tracking-widest"
+          className="text-4xl font-serif tracking-widest text-shadow"
         >
           DE DENTAL SQUARE
         </motion.div>
       </div>
-      <div className="w-64 h-[1px] bg-white/20 relative overflow-hidden">
+      <div className="w-64 h-[1px] bg-[var(--color-latte)]/20 relative overflow-hidden">
         <motion.div
-          className="absolute top-0 left-0 bottom-0 bg-[var(--color-brand-primary)]"
+          className="absolute top-0 left-0 bottom-0 bg-[var(--color-bronze)]"
           style={{ width: `${progress}%` }}
         />
       </div>
-      <div className="mt-4 text-xs font-mono tracking-widest text-white/50">
+      <div className="mt-4 text-xs font-mono tracking-widest text-[var(--color-latte)]/50">
         {Math.round(progress)}%
       </div>
     </motion.div>

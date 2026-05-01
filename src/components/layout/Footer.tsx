@@ -1,21 +1,20 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Linkedin, Heart, ArrowUpRight } from 'lucide-react';
-import Magnetic from '../ui/Magnetic';
+import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Linkedin, Heart, ArrowUpRight, Clock } from 'lucide-react';
 import { services } from '../../constants/services';
 
 const quickLinks = [
   { name: 'About Us', path: '/about' },
-  { name: 'Our Services', path: '/services' },
+  { name: 'Services', path: '/services' },
   { name: 'Testimonials', path: '/testimonials' },
-  { name: 'Book Appointment', path: '/appointment' },
   { name: 'Contact', path: '/contact' },
+  { name: 'Book Appointment', path: '/appointment' },
 ];
 
 const socialLinks = [
-  { icon: Facebook, href: '#', label: 'Facebook' },
   { icon: Instagram, href: '#', label: 'Instagram' },
-  { icon: Twitter, href: '#', label: 'Twitter' },
+  { icon: Facebook, href: '#', label: 'Facebook' },
+  { icon: Twitter, href: '#', label: 'Twitter/X' },
   { icon: Linkedin, href: '#', label: 'LinkedIn' },
 ];
 
@@ -28,168 +27,142 @@ const staggerContainer = {
 };
 
 const staggerItem = {
-  hidden: { opacity: 0, y: 30, filter: 'blur(8px)' },
+  hidden: { opacity: 0, y: 30 },
   visible: { 
     opacity: 1, 
     y: 0, 
-    filter: 'blur(0px)',
-    transition: { duration: 0.6 },
+    transition: { duration: 0.6, ease: "easeOut" as const },
   },
 };
 
 export default function Footer() {
   return (
-    <footer className="bg-[var(--color-brand-dark)] text-white/70 pt-16 md:pt-24 pb-10 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-96 h-96 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(197, 160, 89, 0.05) 0%, transparent 70%)' }} />
-      <div className="absolute bottom-0 left-0 w-64 h-64 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(197, 160, 89, 0.05) 0%, transparent 70%)' }} />
-      
-      <div 
-        className="absolute inset-0 opacity-[0.02]"
-        style={{
-          backgroundImage: `radial-gradient(circle, white 1px, transparent 1px)`,
-          backgroundSize: '40px 40px',
-        }}
-      />
-
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+    <footer className="bg-[var(--footer-bg)] pt-[80px] pb-[32px] px-6 text-[14px]">
+      <div className="max-w-[1280px] mx-auto">
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-14 mb-16 md:mb-20 text-center md:text-left"
+          className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true, margin: '-50px' }}
         >
-          <motion.div className="col-span-1 flex flex-col items-center md:items-start" variants={staggerItem}>
-            <Magnetic>
-              <Link to="/" className="flex items-center gap-4 mb-6 group">
-                <motion.div 
-                  className="w-10 h-10 border border-[var(--color-brand-primary)]/50 flex items-center justify-center text-[var(--color-brand-primary)] font-serif text-xl"
-                  whileHover={{ scale: 1.05, borderColor: 'var(--color-brand-primary)' }}
-                >
-                  D
-                </motion.div>
-                <span className="text-xl font-serif text-white group-hover:text-[var(--color-brand-primary)] transition-colors">
-                  DE Dental Square
-                </span>
-              </Link>
-            </Magnetic>
-            
-            <p className="text-base leading-relaxed mb-10 font-light text-white/60 max-w-sm">
-              Redefining dental excellence in Varanasi. Precision technology meets artistic care — for the smile you deserve.
+          {/* Column 1 - Brand */}
+          <motion.div variants={staggerItem} className="md:col-span-1">
+            <Link to="/" className="flex items-center gap-3 mb-4 group cursor-pointer w-fit inline-flex">
+              <div className="w-[32px] h-[32px] border border-[var(--color-caramel)] flex items-center justify-center text-[var(--color-caramel)] font-serif text-[18px]">
+                D
+              </div>
+              <span className="text-[18px] font-semibold text-[var(--color-cream)] font-[Inter]">
+                DE Dental Square
+              </span>
+            </Link>
+            <p className="text-[14px] text-[var(--color-text-muted)] max-w-[280px] font-[Inter] leading-[1.6] mt-4">
+              Redefining dental excellence in Varanasi. Precision technology meets artistic care.
             </p>
-            
-            <div className="flex gap-4">
+            <div className="flex gap-4 mt-6">
               {socialLinks.map((social, i) => (
-                <motion.a
+                <a
                   key={i}
                   href={social.href}
                   aria-label={social.label}
-                  className="w-12 h-12 border border-white/10 flex items-center justify-center transition-all hover:border-[var(--color-brand-primary)] hover:text-[var(--color-brand-primary)] hover:bg-[var(--color-brand-primary)]/10"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="text-[var(--color-text-muted)] hover:text-[var(--color-caramel)] transition-colors duration-300 w-8 h-8 rounded-full border border-[var(--color-latte)]/10 flex items-center justify-center hover:border-[var(--color-caramel)]/50"
                 >
-                  <social.icon size={18} strokeWidth={1.5} />
-                </motion.a>
+                  <social.icon size={16} strokeWidth={1.5} />
+                </a>
               ))}
             </div>
           </motion.div>
 
-          <motion.div variants={staggerItem}>
-            <h4 className="text-white font-medium uppercase tracking-[0.2em] text-lg mb-10">Quick Links</h4>
-            <ul className="space-y-6">
-              {quickLinks.map((item) => (
-                <li key={item.name}>
-                  <Link to={item.path} className="text-base flex items-center justify-center md:justify-start gap-4 group transition-colors hover:text-[var(--color-brand-primary)] text-white/60">
-                    <motion.span className="w-1.5 h-1.5 bg-[var(--color-brand-primary)]/50 group-hover:bg-[var(--color-brand-primary)] transition-all" whileHover={{ scale: 1.5 }} />
-                    <span className="group-hover:translate-x-1 transition-transform">{item.name}</span>
+          {/* Column 2 - Quick Links */}
+          <motion.div variants={staggerItem} className="md:col-span-1">
+            <h4 className="text-[var(--color-bronze)] font-semibold uppercase tracking-[0.08em] text-[13px] mb-5 font-[Inter]">
+              Quick Links
+            </h4>
+            <ul className="space-y-3">
+              {quickLinks.map((item, idx) => (
+                <li key={idx}>
+                  <Link 
+                    to={item.path} 
+                    className="text-[14px] text-[var(--color-latte)] hover:text-[var(--color-cream)] transition-all hover:translate-x-1 inline-block font-[Inter]"
+                  >
+                    {item.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </motion.div>
 
-          <motion.div variants={staggerItem}>
-            <h4 className="text-white font-medium uppercase tracking-[0.2em] text-lg mb-10">Services</h4>
-            <ul className="space-y-6">
-              {services.map((item) => (
-                <li key={item.id}>
-                  <Link to={`/services/${item.id}`} className="text-base flex items-center justify-center md:justify-start gap-4 group transition-colors hover:text-[var(--color-brand-primary)] text-white/60">
-                    <motion.span className="w-1.5 h-1.5 bg-[var(--color-brand-primary)]/50 group-hover:bg-[var(--color-brand-primary)] transition-all" whileHover={{ scale: 1.5 }} />
-                    <span className="group-hover:translate-x-1 transition-transform">{item.title}</span>
+          {/* Column 3 - Services */}
+          <motion.div variants={staggerItem} className="md:col-span-1">
+            <h4 className="text-[var(--color-bronze)] font-semibold uppercase tracking-[0.08em] text-[13px] mb-5 font-[Inter]">
+              Services
+            </h4>
+            <ul className="space-y-3">
+              {services.slice(0, 6).map((service, idx) => (
+                <li key={idx}>
+                  <Link 
+                    to={`/services/\${service.id}`} 
+                    className="text-[14px] text-[var(--color-latte)] hover:text-[var(--color-cream)] transition-all hover:translate-x-1 inline-block font-[Inter]"
+                  >
+                    {service.title}
                   </Link>
                 </li>
               ))}
             </ul>
           </motion.div>
 
-          <motion.div variants={staggerItem} className="flex flex-col items-center md:items-start">
-            <h4 className="text-white font-medium uppercase tracking-[0.2em] text-lg mb-10">Contact</h4>
-            <ul className="space-y-8">
-              {[
-                { icon: Phone, label: 'Phone', value: '+91 8840066719', href: 'tel:8840066719' },
-                { icon: Mail, label: 'Email', value: 'info@dedentalsquare.com', href: 'mailto:info@dedentalsquare.com' },
-                { icon: MapPin, label: 'Location', value: 'Varanasi, Uttar Pradesh', href: '/contact' },
-              ].map((item, i) => (
-                <motion.li key={i} className="flex items-start gap-5 group" whileHover={{ x: 4 }} transition={{ duration: 0.3 }}>
-                  <motion.div className="w-12 h-12 border border-[var(--color-brand-primary)]/30 flex items-center justify-center flex-shrink-0 mt-0.5 text-[var(--color-brand-primary)] group-hover:bg-[var(--color-brand-primary)] group-hover:text-white transition-all duration-300" whileHover={{ scale: 1.05 }}>
-                    <item.icon size={18} strokeWidth={1.5} />
-                  </motion.div>
-                  <div className="text-left">
-                    <div className="text-xs uppercase tracking-[0.2em] font-medium mb-1.5 text-white/40">{item.label}</div>
-                    {item.href.startsWith('/') ? (
-                        <Link to={item.href} className="text-base text-white hover:text-[var(--color-brand-primary)] transition-colors">
-                          {item.value}
-                        </Link>
-                    ) : (
-                        <a href={item.href} className="text-base text-white hover:text-[var(--color-brand-primary)] transition-colors">
-                          {item.value}
-                        </a>
-                    )}
-                  </div>
-                </motion.li>
-              ))}
+          {/* Column 4 - Contact Info */}
+          <motion.div variants={staggerItem} className="md:col-span-1">
+            <h4 className="text-[var(--color-bronze)] font-semibold uppercase tracking-[0.08em] text-[13px] mb-5 font-[Inter]">
+              Get in Touch
+            </h4>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3 text-[var(--color-latte)]">
+                <MapPin size={16} className="text-[var(--color-bronze)] mt-0.5 shrink-0" />
+                <span className="text-[14px] leading-[1.6]">
+                  Lane No 14 (Main Road), Ravindrapuri Rd, opposite to Bank Of India ATM, Colony, Varanasi, Uttar Pradesh 221001
+                </span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Phone size={16} className="text-[var(--color-bronze)] shrink-0" />
+                <a href="tel:+918840066719" className="text-[var(--color-cream)] font-medium text-[14px] hover:text-[var(--color-caramel)] transition-colors">
+                  +91 88400 66719
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <Mail size={16} className="text-[var(--color-bronze)] shrink-0" />
+                <a href="mailto:hello@dedentalsquare.com" className="text-[var(--color-cream)] font-medium text-[14px] hover:text-[var(--color-caramel)] transition-colors">
+                  hello@dedentalsquare.com
+                </a>
+              </li>
+              <li className="flex items-center gap-3 text-[var(--color-cream)]">
+                <Clock size={16} className="text-[var(--color-bronze)] shrink-0" />
+                <span className="font-medium text-[14px]">Mon–Sat: 10AM – 8PM</span>
+              </li>
             </ul>
           </motion.div>
         </motion.div>
 
+        {/* Bottom Bar */}
         <motion.div 
-          className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 border-t border-white/10"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          variants={staggerItem}
+          className="border-t border-[var(--color-latte)]/10 mt-12 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[13px] font-[Inter]"
         >
-          <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-white/40">
-            © 2025 DE DENTAL SQUARE — ALL RIGHTS RESERVED
-          </p>
-          
-          <motion.p className="text-xs flex items-center gap-2 text-white/40" whileHover={{ color: 'var(--color-brand-primary)' }}>
-            Made with 
-            <motion.span animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1, repeat: Infinity }}>
-              <Heart size={10} className="fill-[var(--color-brand-primary)] text-[var(--color-brand-primary)]" />
-            </motion.span>
-            for better smiles
-          </motion.p>
-          
-          <div className="flex gap-8">
-            {['Privacy Policy', 'Terms of Service'].map((item) => (
-              <Link key={item} to="#" className="text-[10px] font-medium uppercase tracking-[0.2em] transition-colors hover:text-[var(--color-brand-primary)] text-white/40">
-                {item}
-              </Link>
-            ))}
+          <div className="text-[var(--color-text-muted)]">
+            © {new Date().getFullYear()} DE Dental Square. All rights reserved.
+          </div>
+          <div className="text-[var(--color-text-muted)]">
+            Made with care in Varanasi
+          </div>
+          <div className="flex gap-6 text-[var(--color-text-muted)]">
+            <Link to="/privacy-policy" className="hover:text-[var(--color-cream)] transition-colors">
+              Privacy Policy
+            </Link>
+            <Link to="/terms-of-service" className="hover:text-[var(--color-cream)] transition-colors">
+              Terms of Service
+            </Link>
           </div>
         </motion.div>
-
-        <motion.button
-          className="fixed bottom-8 right-8 w-12 h-12 bg-[var(--color-brand-primary)] text-white flex items-center justify-center shadow-lg z-40"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          whileHover={{ scale: 1.1, y: -2 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <ArrowUpRight size={20} />
-        </motion.button>
       </div>
     </footer>
   );

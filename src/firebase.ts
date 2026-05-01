@@ -54,7 +54,7 @@ export interface FirestoreErrorInfo {
 }
 
 export function handleFirestoreError(error: unknown, operationType: OperationType, path: string | null) {
-  console.trace('Firestore Error Trace:');
+// Removed trace as part of optimization
   const errInfo: FirestoreErrorInfo = {
     error: error instanceof Error ? error.message : String(error),
     authInfo: {
@@ -154,7 +154,8 @@ export const bookAppointment = async (data: Omit<AppointmentData, 'status' | 'cr
     // 2. TRIGGER EMAIL (NOT Awaited - "Fire and Forget")
     // This is the secret to the backup site's speed. The website won't 
     // wait for the email server to respond before showing "Success".
-    fetch('/api/send-email', {
+    const baseUrl = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, '') || '';
+    fetch(`${baseUrl}/api/send-email`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -188,11 +189,11 @@ export const deleteAppointment = async (id: string) => {
 };
 
 export const deleteTestimonial = async (id: string) => {
-  console.log("firebase.ts: Attempting to delete testimonial:", id);
+// Removed log as part of optimization
   const path = `testimonials/${id}`;
   try {
     await deleteDoc(doc(db, 'testimonials', id));
-    console.log("firebase.ts: Successfully deleted testimonial:", id);
+// Removed log as part of optimization
   } catch (error) {
     console.error("firebase.ts: Delete error:", error);
     handleFirestoreError(error, OperationType.DELETE, path);
@@ -205,7 +206,7 @@ async function testConnection() {
     await getDocFromServer(doc(db, 'test', 'connection'));
   } catch (error) {
     if(error instanceof Error && error.message.includes('offline')) {
-      console.warn("Firebase is currently offline or misconfigured.");
+// Removed warn as part of optimization
     }
   }
 }
