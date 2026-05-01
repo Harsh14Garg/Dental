@@ -1,10 +1,12 @@
 import express from "express";
 import path from "path";
+import cors from "cors";
 
 async function startServer() {
   const app = express();
   const PORT = Number(process.env.PORT) || 3000;
 
+  app.use(cors());
   app.use(express.json());
 
   app.get("/api/health", (req, res) => res.json({ status: "ok" }));
