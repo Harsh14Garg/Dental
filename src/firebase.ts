@@ -154,8 +154,9 @@ export const bookAppointment = async (data: Omit<AppointmentData, 'status' | 'cr
     // 2. TRIGGER EMAIL (NOT Awaited - "Fire and Forget")
     // This is the secret to the backup site's speed. The website won't 
     // wait for the email server to respond before showing "Success".
-    const baseUrl = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, '') || '';
-    fetch(`${baseUrl}/api/send-email`, {
+    const absoluteUrl = `/api/send-email`;
+    console.log(`📡 Fetching to: ${absoluteUrl}`);
+    fetch(absoluteUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

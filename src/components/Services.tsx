@@ -58,7 +58,7 @@ export default function Services() {
                           className="relative w-16 h-16 border border-[var(--color-bronze)]/50 flex items-center justify-center flex-shrink-0 bg-[var(--color-warmgray)] group-hover:bg-[var(--color-bronze)] transition-all duration-500 rounded-xl shadow-lg" 
                           whileHover={{ rotate: 10, scale: 1.1 }}
                         >
-                          <service.icon size={28} strokeWidth={1.5} className="text-[var(--color-bronze)] group-hover:text-[var(--color-cream)] transition-colors duration-500 group-hover:scale-110" />
+                          <service.icon size={28} strokeWidth={1.5} className="text-[var(--color-bronze)] group-hover:text-white transition-colors duration-500 group-hover:scale-110" />
                         </motion.div>
                         
                         <div className="flex-1 transform transition-all duration-500 group-hover:translate-x-2">

@@ -115,7 +115,7 @@ export default function MyAppointments() {
                 className="glass-card p-8 border border-[var(--color-bronze)]/10 group hover:border-[var(--color-bronze)]/30 transition-all duration-500 rounded-sm"
               >
                 <div className="flex justify-between items-start mb-8">
-                  <div className="w-12 h-12 border border-[var(--color-bronze)]/20 rounded-full flex items-center justify-center text-[var(--color-bronze)] group-hover:bg-[var(--color-caramel)] group-hover:text-[var(--color-cream)] transition-all duration-500">
+                  <div className="w-12 h-12 border border-[var(--color-bronze)]/20 rounded-full flex items-center justify-center text-[var(--color-bronze)] group-hover:bg-[var(--color-caramel)] group-hover:text-white transition-all duration-500">
                     <Activity size={18} strokeWidth={1.5} />
                   </div>
                   <span className={`px-4 py-1.5 text-[9px] font-medium uppercase tracking-[0.2em] border rounded-sm ${

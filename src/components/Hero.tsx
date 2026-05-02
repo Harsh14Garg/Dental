@@ -5,12 +5,13 @@ import Magnetic from './ui/Magnetic';
 import { useRef } from 'react';
 import { fadeInUp, fadeInStagger, scaleIn, slideInLeft, slideInRight, revealOnScroll, hoverLift } from '../lib/animations';
 import { SplitText } from './ui/SplitText';
+import { AnimatedStat } from './About';
 
 const stats = [
-  { value: '15k+', label: 'Patients Treated' },
-  { value: '12+', label: 'Years Experience' },
-  { value: '99%', label: 'Success Rate' },
-  { value: '50+', label: 'Procedures' },
+  { value: 15, suffix: 'k+', label: 'Patients Treated' },
+  { value: 12, suffix: '+', label: 'Years Experience' },
+  { value: 99, suffix: '%', label: 'Success Rate' },
+  { value: 50, suffix: '+', label: 'Procedures' },
 ];
 
 function GradientText({ children }: { children: React.ReactNode }) {
@@ -53,7 +54,7 @@ export default function Hero() {
           style={{ opacity: heroOpacity, y: heroY }}
         >
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="max-w-2xl glass-card p-10 md:p-14">
+            <div className="max-w-2xl glass-card p-6 sm:p-10 md:p-14 text-center lg:text-left">
               <motion.div
                 variants={fadeInUp}
                 initial="hidden"
@@ -79,18 +80,18 @@ export default function Hero() {
                 />
               </motion.div>
 
-              <div className="mb-8">
+              <div className="mb-8 flex flex-col items-center lg:items-start text-center lg:text-left">
                 <SplitText 
                   text="Precision" 
-                  className="text-6xl md:text-8xl font-serif leading-[0.9] text-[var(--color-cream)]" 
+                  className="text-5xl sm:text-6xl md:text-8xl font-serif leading-[0.9] text-[var(--color-cream)]" 
                   delay={0.2} 
                 />
                 <SplitText 
                   text="meets" 
-                  className="text-6xl md:text-8xl font-serif leading-[0.9] italic font-light text-[var(--color-latte)]" 
+                  className="text-5xl sm:text-6xl md:text-8xl font-serif leading-[0.9] italic font-light text-[var(--color-latte)]" 
                   delay={0.4} 
                 />
-                <div className="text-6xl md:text-8xl font-serif leading-[0.9]">
+                <div className="text-5xl sm:text-6xl md:text-8xl font-serif leading-[0.9]">
                   <GradientText>Artistry</GradientText>
                 </div>
               </div>
@@ -109,7 +110,7 @@ export default function Hero() {
                 variants={fadeInUp}
                 initial="hidden"
                 animate="visible"
-                className="flex flex-col sm:flex-row items-center gap-6"
+                className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-4 sm:gap-6"
               >
                 <Magnetic>
                   <Link to="/appointment">
@@ -151,7 +152,7 @@ export default function Hero() {
                 className="relative z-10"
               >
                 <motion.div
-                  className="relative oval-mask overflow-hidden aspect-[3/4] max-w-md mx-auto lg:ml-auto img-zoom"
+                  className="relative oval-mask overflow-hidden aspect-[3/4] w-full max-w-sm sm:max-w-md mx-auto lg:ml-auto img-zoom"
                 >
                   <motion.img 
                     src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800" 
@@ -167,7 +168,7 @@ export default function Hero() {
               </motion.div>
               
               <motion.div 
-                className="absolute top-1/4 -right-8 vertical-text text-[var(--color-latte)]/40"
+                className="absolute top-1/4 -right-8 vertical-text text-[var(--color-latte)]/40 hidden lg:block"
                 variants={slideInRight}
                 initial="hidden"
                 animate="visible"
@@ -244,7 +245,7 @@ export default function Hero() {
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.3 }}
                   >
-                    {s.value}
+                    <AnimatedStat value={s.value} suffix={s.suffix} />
                   </motion.div>
                   <div className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[var(--color-latte)]/60">
                     {s.label}
@@ -289,7 +290,7 @@ export default function Hero() {
                   <Link to={item.link}>
                     <div className="dental-card p-8 flex flex-col gap-6 h-full group ">
                       <motion.div 
-                        className="service-icon w-12 h-12 rounded-full border border-[var(--color-bronze)]/30 flex items-center justify-center text-[var(--color-bronze)] group-hover:bg-[var(--color-caramel)] group-hover:text-[var(--color-cream)] transition-all duration-500"
+                        className="service-icon w-12 h-12 rounded-full border border-[var(--color-bronze)]/30 flex items-center justify-center text-[var(--color-bronze)] group-hover:bg-[var(--color-caramel)] group-hover:text-white transition-all duration-500"
                         whileHover={{ rotate: 5 }}
                       >
                         <item.icon size={20} strokeWidth={1.5} />
@@ -365,7 +366,7 @@ export default function Hero() {
                   whileInView="visible"
                   viewport={{ once: true }}
                   animate={{ y: [0, -10, 0] }}
-                  className="absolute -bottom-8 -left-8 glass-card p-6 max-w-[260px]"
+                  className="absolute -bottom-4 right-4 sm:-bottom-8 sm:-left-8 glass-card p-4 sm:p-6 w-[220px] sm:max-w-[260px] z-20"
                 >
                   <div className="flex items-center gap-4">
                     <motion.div 
@@ -384,15 +385,16 @@ export default function Hero() {
               </motion.div>
             </div>
 
-            <div className="lg:w-1/2">
+            <div className="lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left">
               <motion.div
                 variants={slideInRight}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
+                className="w-full"
               >
                 <motion.div 
-                  className="inline-flex items-center gap-3 mb-8"
+                  className="inline-flex items-center justify-center lg:justify-start w-full gap-3 mb-8"
                   variants={fadeInUp}
                 >
                   <motion.div 
@@ -409,7 +411,7 @@ export default function Hero() {
                 </motion.div>
                 
                 <motion.h2 
-                  className="text-5xl md:text-6xl font-serif leading-[1.1] mb-8 text-[var(--color-cream)]"
+                  className="text-4xl sm:text-5xl md:text-6xl font-serif leading-[1.1] mb-8 text-[var(--color-cream)]"
                   variants={fadeInUp}
                 >
                   Excellence in Every
@@ -418,7 +420,7 @@ export default function Hero() {
                 </motion.h2>
                 
                 <motion.p 
-                  className="text-lg mb-10 font-light leading-relaxed text-[var(--color-latte)]/80"
+                  className="text-lg mb-10 font-light leading-relaxed text-[var(--color-latte)]/80 mx-auto lg:mx-0 max-w-lg"
                   variants={fadeInUp}
                 >
                   At DE Dental Square, we combine state-of-the-art technology
@@ -427,7 +429,7 @@ export default function Hero() {
                 </motion.p>
                 
                 <motion.ul 
-                  className="space-y-6 mb-12"
+                  className="space-y-6 mb-12 flex flex-col items-center lg:items-start"
                   variants={fadeInStagger}
                   initial="hidden"
                   whileInView="visible"
@@ -442,28 +444,30 @@ export default function Hero() {
                   ].map((item, i) => (
                     <motion.li 
                       key={i} 
-                      className="flex items-center gap-4 font-light text-lg group  text-[var(--color-cream)]"
+                      className="flex items-center justify-center lg:justify-start gap-4 font-light text-lg group text-[var(--color-cream)] w-full"
                       variants={fadeInUp}
                     >
                       <motion.div 
-                        className="w-2 h-2 rounded-full bg-[var(--color-bronze)] group-hover:scale-150 transition-transform"
+                        className="w-2 h-2 rounded-full bg-[var(--color-bronze)] group-hover:scale-150 transition-transform shrink-0"
                       />
-                      <span className="group-hover:text-[var(--color-bronze)] transition-colors">{item}</span>
+                      <span className="group-hover:text-[var(--color-bronze)] transition-colors text-left">{item}</span>
                     </motion.li>
                   ))}
                 </motion.ul>
                 
-                <Magnetic>
-                  <Link to="/about">
-                    <motion.button 
-                      whileTap={{ scale: 0.95 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                      className="btn-secondary px-10 py-4 text-xs"
-                    >
-                      Learn More About Us
-                    </motion.button>
-                  </Link>
-                </Magnetic>
+                <div className="flex justify-center lg:justify-start">
+                  <Magnetic>
+                    <Link to="/about">
+                      <motion.button 
+                        whileTap={{ scale: 0.95 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                        className="btn-secondary px-10 py-4 text-xs"
+                      >
+                        Learn More About Us
+                      </motion.button>
+                    </Link>
+                  </Magnetic>
+                </div>
               </motion.div>
             </div>
           </div>
@@ -475,22 +479,23 @@ export default function Hero() {
         <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[var(--footer-bg)] to-transparent z-10" />
         
         <motion.div 
-          className="flex animate-marquee whitespace-nowrap"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          {[...Array(3)].flatMap((_, arrayIndex) =>
-            ['Dental Implants', 'Smile Makeover', 'Root Canal', 'Teeth Whitening', 'Orthodontics', 'Oral Surgery', 'Pediatric Care', 'Gum Treatment'].map((s, i) => (
-              <span 
-                key={`${arrayIndex}-${i}`} 
-                className="inline-flex items-center gap-6 mx-8 text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-latte)]/40 hover:text-[var(--color-bronze)] transition-colors "
-              >
-                <span className="w-2 h-2 rounded-full bg-[var(--color-bronze)]" />
-                {s}
-              </span>
-            ))
-          )}
+          <div className="flex animate-marquee whitespace-nowrap min-w-max">
+            {[...Array(4)].flatMap((_, arrayIndex) =>
+              ['Dental Implants', 'Smile Makeover', 'Root Canal', 'Teeth Whitening', 'Orthodontics', 'Oral Surgery', 'Pediatric Care', 'Gum Treatment'].map((s, i) => (
+                <span 
+                  key={`${arrayIndex}-${i}`} 
+                  className="inline-flex items-center gap-6 mx-8 text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-latte)]/40 hover:text-[var(--color-bronze)] transition-colors "
+                >
+                  <span className="w-2 h-2 rounded-full bg-[var(--color-bronze)]" />
+                  {s}
+                </span>
+              ))
+            )}
+          </div>
         </motion.div>
       </section>
     </div>

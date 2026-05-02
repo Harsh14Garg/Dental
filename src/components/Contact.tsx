@@ -163,35 +163,35 @@ export default function Contact() {
           </div>
 
           {/* Right Column - Parallax Orbs */}
-          <div className="flex items-center justify-center gap-6 md:gap-10 h-full w-full">
+          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-10 h-full w-full mt-12 md:mt-0">
             <motion.a 
               initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.3, duration: 0.8, type: "spring", stiffness: 100 }}
               style={{ transform: `translate(${MousePosition.x * -1}px, ${MousePosition.y * -1}px)` }}
-              className="w-[140px] h-[140px] md:w-[160px] md:h-[160px] bg-[var(--color-bg-primary)] rounded-full border border-[var(--color-latte)]/30 shadow-[0_20px_60px_rgba(31,28,27,0.08)] flex flex-col items-center justify-center p-4 hover:scale-105 hover:border-[var(--color-bronze)] transition-all duration-500 cursor-pointer group z-20"
+              className="w-[100px] h-[100px] sm:w-[140px] sm:h-[140px] md:w-[160px] md:h-[160px] bg-[var(--color-bg-primary)] rounded-full border border-[var(--color-latte)]/30 shadow-[0_20px_60px_rgba(31,28,27,0.08)] flex flex-col items-center justify-center p-2 sm:p-4 hover:scale-105 hover:border-[var(--color-bronze)] transition-all duration-500 cursor-pointer group z-20"
               href="https://maps.google.com/?q=DE+Dental+Square+Varanasi" target="_blank" rel="noreferrer"
             >
-              <MapPin size={28} className="text-[var(--color-bronze)] mb-2 group-hover:-translate-y-1 transition-transform" />
-              <span className="text-[var(--color-text-primary)] font-semibold text-[13px] uppercase tracking-wide">Visit Us</span>
+              <MapPin size={24} className="text-[var(--color-bronze)] mb-1 sm:mb-2 group-hover:-translate-y-1 transition-transform sm:w-[28px] sm:h-[28px]" />
+              <span className="text-[var(--color-text-primary)] font-semibold text-[10px] sm:text-[13px] uppercase tracking-wide text-center">Visit Us</span>
             </motion.a>
 
             <motion.a 
               initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.45, duration: 0.8, type: "spring", stiffness: 100 }}
               style={{ transform: `translate(${MousePosition.x * -1.5}px, ${MousePosition.y * -1.5}px)` }}
-              className="w-[140px] h-[140px] md:w-[160px] md:h-[160px] bg-[var(--color-bg-primary)] rounded-full border border-[var(--color-latte)]/30 shadow-[0_20px_60px_rgba(31,28,27,0.08)] flex flex-col items-center justify-center p-4 hover:scale-105 hover:border-[var(--color-bronze)] transition-all duration-500 cursor-pointer group z-20"
+              className="w-[100px] h-[100px] sm:w-[140px] sm:h-[140px] md:w-[160px] md:h-[160px] bg-[var(--color-bg-primary)] rounded-full border border-[var(--color-latte)]/30 shadow-[0_20px_60px_rgba(31,28,27,0.08)] flex flex-col items-center justify-center p-2 sm:p-4 hover:scale-105 hover:border-[var(--color-bronze)] transition-all duration-500 cursor-pointer group z-20"
               href="tel:+918840066719"
             >
-              <Phone size={28} className="text-[var(--color-bronze)] mb-2 group-hover:-translate-y-1 transition-transform" />
-              <span className="text-[var(--color-text-primary)] font-semibold text-[13px] uppercase tracking-wide">Call Us</span>
+              <Phone size={24} className="text-[var(--color-bronze)] mb-1 sm:mb-2 group-hover:-translate-y-1 transition-transform sm:w-[28px] sm:h-[28px]" />
+              <span className="text-[var(--color-text-primary)] font-semibold text-[10px] sm:text-[13px] uppercase tracking-wide text-center">Call Us</span>
             </motion.a>
 
             <motion.a 
               initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.6, duration: 0.8, type: "spring", stiffness: 100 }}
               style={{ transform: `translate(${MousePosition.x * -0.8}px, ${MousePosition.y * -0.8}px)` }}
-              className="w-[140px] h-[140px] md:w-[160px] md:h-[160px] bg-[var(--color-bg-primary)] rounded-full border border-[var(--color-latte)]/30 shadow-[0_20px_60px_rgba(31,28,27,0.08)] flex flex-col items-center justify-center p-4 hover:scale-105 hover:border-[var(--color-bronze)] transition-all duration-500 cursor-pointer group z-20"
+              className="w-[100px] h-[100px] sm:w-[140px] sm:h-[140px] md:w-[160px] md:h-[160px] bg-[var(--color-bg-primary)] rounded-full border border-[var(--color-latte)]/30 shadow-[0_20px_60px_rgba(31,28,27,0.08)] flex flex-col items-center justify-center p-2 sm:p-4 hover:scale-105 hover:border-[var(--color-bronze)] transition-all duration-500 cursor-pointer group z-20"
               href="mailto:hello@dedentalsquare.com"
             >
-              <Mail size={28} className="text-[var(--color-bronze)] mb-2 group-hover:-translate-y-1 transition-transform" />
-              <span className="text-[var(--color-text-primary)] font-semibold text-[13px] uppercase tracking-wide">Email Us</span>
+              <Mail size={24} className="text-[var(--color-bronze)] mb-1 sm:mb-2 group-hover:-translate-y-1 transition-transform sm:w-[28px] sm:h-[28px]" />
+              <span className="text-[var(--color-text-primary)] font-semibold text-[10px] sm:text-[13px] uppercase tracking-wide text-center">Email Us</span>
             </motion.a>
           </div>
         </div>

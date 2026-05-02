@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useInView } from 'motion/react';
 import { Award, CheckCircle2, ArrowRight } from 'lucide-react';
 import { slideInLeft, fadeInUp, fadeInStagger } from '../lib/animations';
@@ -10,7 +11,7 @@ const stats = [
   { label: 'Success Rate', value: 99, suffix: '%' },
 ];
 
-function AnimatedStat({ value, suffix }: { value: number; suffix: string }) {
+export function AnimatedStat({ value, suffix }: { value: number; suffix: string }) {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
@@ -18,7 +19,7 @@ function AnimatedStat({ value, suffix }: { value: number; suffix: string }) {
   useEffect(() => {
     if (isInView) {
       let startTimestamp: number;
-      const duration = 1000;
+      const duration = 600;
       const step = (timestamp: number) => {
         if (!startTimestamp) startTimestamp = timestamp;
         const progress = Math.min((timestamp - startTimestamp) / duration, 1);
@@ -177,14 +178,15 @@ export default function About() {
             </motion.div>
 
             {/* Right Column: Text */}
-            <div className="py-8">
+            <div className="py-8 text-center lg:text-left flex flex-col items-center lg:items-start">
               <motion.div
                 variants={fadeInUp}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
+                className="w-full flex flex-col items-center lg:items-start"
               >
-                <h2 className="text-[var(--color-bronze)] font-medium tracking-[0.15em] uppercase text-xs mb-6 flex items-center gap-4">
+                <h2 className="text-[var(--color-bronze)] font-medium tracking-[0.15em] uppercase text-xs mb-6 flex items-center justify-center lg:justify-start gap-4 w-full">
                   <span className="w-8 h-[1px] bg-[var(--color-bronze)]/50"></span>
                   THE LEGACY
                   <span className="w-8 h-[1px] bg-[var(--color-bronze)]/50"></span>
@@ -192,16 +194,16 @@ export default function About() {
                 <p className="text-4xl md:text-5xl font-serif text-[var(--color-cream)] mb-8 leading-[1.2]">
                   Crafting Smiles with <span className="italic text-[var(--color-bronze)]">Passion</span>
                 </p>
-                <p className="text-base text-[var(--color-latte)] mb-8 leading-[1.7] font-light max-w-[560px]">
+                <p className="text-base text-[var(--color-latte)] mb-8 leading-[1.7] font-light max-w-[560px] mx-auto lg:mx-0">
                   De Dental Square was founded on the principle of providing high-quality, compassionate dental care to the Varanasi community. 
                 </p>
 
-                <p className="text-base text-[var(--color-latte)] mb-8 leading-[1.7] font-light max-w-[560px]">
+                <p className="text-base text-[var(--color-latte)] mb-8 leading-[1.7] font-light max-w-[560px] mx-auto lg:mx-0">
                   Our state-of-the-art facility in Ravindrapuri is equipped with the latest technology to ensure your comfort and safety.
                 </p>
 
                 <motion.div 
-                  className="grid gap-4"
+                  className="grid gap-4 w-full max-w-[560px] mx-auto lg:mx-0"
                   variants={fadeInStagger}
                   initial="hidden"
                   whileInView="visible"
@@ -213,7 +215,7 @@ export default function About() {
                     'Bespoke aesthetic treatment plans',
                     'Premium patient experience'
                   ].map((item, i) => (
-                    <motion.div key={i} variants={fadeInUp} className="flex items-center gap-4">
+                    <motion.div key={i} variants={fadeInUp} className="flex items-center justify-center lg:justify-start gap-4 w-full">
                       <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-bronze)] shrink-0"></div>
                       <span className="text-[var(--color-latte)] font-normal text-[15px]">{item}</span>
                     </motion.div>
@@ -285,11 +287,11 @@ export default function About() {
                   decoding="async"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 bg-[var(--color-espresso)]/0 group-hover:bg-[var(--color-espresso)]/70 transition-colors duration-500 flex items-end justify-center pb-8 opacity-0 group-hover:opacity-100">
+                <Link to="/gallery" className="absolute inset-0 bg-[var(--color-espresso)]/0 group-hover:bg-[var(--color-espresso)]/70 transition-colors duration-500 flex items-end justify-center pb-8 opacity-0 group-hover:opacity-100 z-10">
                   <span className="text-[var(--color-cream)] font-medium text-sm flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                     View Gallery <ArrowRight size={16} />
                   </span>
-                </div>
+                </Link>
               </motion.div>
             ))}
           </motion.div>
@@ -454,7 +456,7 @@ export default function About() {
             <motion.div variants={fadeInUp}>
               <a 
                 href="/appointment"
-                className="inline-flex items-center gap-2 bg-[var(--color-bronze)] text-[var(--color-cream)] font-medium text-[13px] uppercase tracking-[0.08em] px-8 py-4 rounded transition-all duration-300 hover:bg-[var(--color-caramel)] hover:-translate-y-1 hover:shadow-warm-glow group"
+                className="inline-flex items-center gap-2 bg-[var(--color-bronze)] text-white font-medium text-[13px] uppercase tracking-[0.08em] px-8 py-4 rounded transition-all duration-300 hover:bg-[var(--color-caramel)] hover:-translate-y-1 hover:shadow-warm-glow group"
               >
                 Book a Consultation
                 <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />

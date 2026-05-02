@@ -238,7 +238,7 @@ export default function AdminDashboard() {
                 className="glass-card p-8 border border-[var(--color-bronze)]/10 group hover:border-[var(--color-bronze)]/30 transition-all duration-500 flex flex-col rounded-sm"
               >
                 <div className="flex justify-between items-start mb-6">
-                  <div className="w-12 h-12 border border-[var(--color-bronze)]/20 rounded-full flex items-center justify-center text-[var(--color-bronze)] group-hover:bg-[var(--color-caramel)] group-hover:text-[var(--color-cream)] transition-all duration-500">
+                  <div className="w-12 h-12 border border-[var(--color-bronze)]/20 rounded-full flex items-center justify-center text-[var(--color-bronze)] group-hover:bg-[var(--color-caramel)] group-hover:text-white transition-all duration-500">
                     <Activity size={18} strokeWidth={1.5} />
                   </div>
                   <div className="flex items-center gap-3">

@@ -12,6 +12,7 @@ import ScrollProgress from './components/layout/ScrollProgress';
 const Hero = lazy(() => import('./components/Hero'));
 const About = lazy(() => import('./components/About'));
 const Services = lazy(() => import('./components/Services'));
+const Gallery = lazy(() => import('./components/Gallery'));
 const Testimonials = lazy(() => import('./components/Testimonials'));
 const AppointmentForm = lazy(() => import('./components/AppointmentForm'));
 const Contact = lazy(() => import('./components/Contact'));
@@ -40,7 +41,7 @@ export default function App() {
 
       {!loading && (
         <SmoothScroll>
-          <div className="min-h-screen flex flex-col bg-[var(--color-espresso)] text-[var(--color-cream)] relative">
+          <div className="min-h-screen flex flex-col bg-[var(--color-espresso)] text-[var(--color-cream)] relative w-full">
             <Navbar />
             
             <main className="flex-grow relative z-10">
@@ -56,6 +57,9 @@ export default function App() {
                     } />
                     <Route path="/services/:serviceId" element={
                       <PageTransition><ServiceDetail /></PageTransition>
+                    } />
+                    <Route path="/gallery" element={
+                      <PageTransition><Gallery /></PageTransition>
                     } />
                     <Route path="/testimonials" element={
                       <PageTransition><Testimonials /></PageTransition>

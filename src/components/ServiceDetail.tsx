@@ -184,9 +184,9 @@ export default function ServiceDetail() {
               <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[var(--color-bronze)] text-white text-[10px] font-bold uppercase tracking-[0.1em] px-4 py-1.5 rounded-full">
                 MOST CHOICE
               </div>
-              <h3 className="text-xl text-white font-medium mb-2">Premium</h3>
+              <h3 className="text-xl text-[var(--color-cream)] font-medium mb-2">Premium</h3>
               <div className="text-4xl font-serif text-[var(--color-bronze)] mb-8">₹4,500+</div>
-              <ul className="space-y-5 text-sm text-white/80 text-left">
+              <ul className="space-y-5 text-sm text-[var(--color-latte)] text-left">
                 <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-[var(--color-bronze)]"></span> Advanced biomaterials</li>
                 <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-[var(--color-bronze)]"></span> Priority booking</li>
                 <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-[var(--color-bronze)]"></span> 1 year warranty</li>
@@ -261,18 +261,18 @@ export default function ServiceDetail() {
             <div className="w-8 h-px bg-[var(--color-bronze)]"></div>
           </div>
           
-          <h2 className="text-4xl md:text-6xl font-serif text-white mb-6">
+          <h2 className="text-4xl md:text-6xl font-serif text-[var(--color-cream)] mb-6">
             Ready to Begin Your <span className="italic text-[var(--color-bronze)]">Journey?</span>
           </h2>
-          <p className="text-lg text-white/70 mb-12 font-light">
-            Book a private consultation for <strong className="text-white font-medium">{service.title}</strong> with Dr. Neeraj Agrawal today.
+          <p className="text-lg text-[var(--color-latte)] mb-12 font-light">
+            Book a private consultation for <strong className="text-[var(--color-cream)] font-medium">{service.title}</strong> with Dr. Neeraj Agrawal today.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <Link to="/appointment" className="w-full sm:w-auto bg-[var(--color-bronze)] hover:bg-[var(--color-caramel)] text-white px-8 py-4 rounded font-bold text-[11px] uppercase tracking-[0.15em] transition-colors flex items-center justify-center gap-2 group">
               BOOK THIS TREATMENT <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
             </Link>
-            <Link to="/services" className="w-full sm:w-auto border border-white/20 hover:border-white/40 text-white px-8 py-4 rounded font-bold text-[11px] uppercase tracking-[0.15em] transition-colors flex items-center justify-center">
+            <Link to="/services" className="w-full sm:w-auto border border-[var(--color-latte)]/20 hover:border-[var(--color-latte)]/40 text-[var(--color-cream)] px-8 py-4 rounded font-bold text-[11px] uppercase tracking-[0.15em] transition-colors flex items-center justify-center">
               ALL SERVICES
             </Link>
           </div>

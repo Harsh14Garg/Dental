@@ -11,7 +11,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [user, setUser] = useState<FirebaseUser | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true); // Default to dark as per :root
+  const [isDarkMode, setIsDarkMode] = useState(false); // Default to light mode
   const { scrollY } = useScroll();
   const location = useLocation();
   const navigate = useNavigate();
@@ -19,6 +19,7 @@ export default function Navbar() {
   const links = [
     { name: 'About', path: '/about' },
     { name: 'Services', path: '/services' },
+    { name: 'Gallery', path: '/gallery' },
     { name: 'Testimonials', path: '/testimonials' },
     { name: 'Contact', path: '/contact' },
   ];
@@ -28,9 +29,9 @@ export default function Navbar() {
   useEffect(() => {
     // Theme toggle logic
     if (isDarkMode) {
-      document.documentElement.classList.remove('light');
+      document.documentElement.classList.add('dark');
     } else {
-      document.documentElement.classList.add('light');
+      document.documentElement.classList.remove('dark');
     }
   }, [isDarkMode]);
 
@@ -78,7 +79,7 @@ export default function Navbar() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 h-[72px] transition-all duration-500 font-['Inter'] flex items-center ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 font-['Inter'] ${
         isScrolled ? 'glass-nav-scrolled' : 'glass-nav'
       }`}
     >
@@ -88,7 +89,7 @@ export default function Navbar() {
         </div>
       )}
       
-      <div className="max-w-[1280px] mx-auto px-6 h-full flex items-center justify-between gap-4">
+      <div className="max-w-[1280px] w-full mx-auto px-4 md:px-6 h-[72px] flex items-center justify-between gap-4">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 shrink-0 group">
           <div className="w-[32px] h-[32px] border border-[var(--color-latte)]/20 group-hover:border-[var(--color-caramel)] transition-colors flex items-center justify-center rounded-sm">
@@ -100,7 +101,7 @@ export default function Navbar() {
           </div>
         </Link>
         {/* Center Nav Links */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-8">
           <AnimatePresence>
             {isAdmin && (
               <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }}>
@@ -131,7 +132,7 @@ export default function Navbar() {
         </nav>
 
         {/* Right Side */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-6">
           <button 
             onClick={() => setIsDarkMode(!isDarkMode)}
             className="p-2 rounded-full hover:bg-[var(--color-latte)]/10 text-[var(--color-cream)] transition-colors"
@@ -175,7 +176,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Toggle */}
-        <button className="md:hidden text-[var(--color-cream)] p-2" onClick={() => setIsOpen(!isOpen)}>
+        <button className="lg:hidden text-[var(--color-cream)] p-2" onClick={() => setIsOpen(!isOpen)}>
           <AnimatePresence mode="wait">
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </AnimatePresence>
@@ -190,7 +191,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden absolute top-full left-0 right-0 bg-[var(--color-espresso)] border-t border-[var(--color-latte)]/10 overflow-hidden shadow-xl"
+            className="lg:hidden absolute top-full left-0 right-0 bg-[var(--color-espresso)] border-t border-[var(--color-latte)]/10 overflow-hidden shadow-xl"
           >
             <div className="py-6 px-6 flex flex-col gap-2">
               <button 
