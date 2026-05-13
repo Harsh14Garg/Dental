@@ -7,40 +7,40 @@ const gallerySections = [
     title: "Clinic Tour",
     description: "Experience our state-of-the-art facility designed for your comfort and expert care.",
     images: [
-      { url: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800", alt: "Clinic Interior" },
-      { url: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800", alt: "Treatment Room" },
-      { url: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800", alt: "Waiting Area" },
-      { url: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800", alt: "Consultation Room" }
+      { url: "/clinic-photo-outside-1.jpeg", alt: "Clinic Exterior" },
+      { url: "/clinic-photo-outside-4.jpeg", alt: "Clinic Entrance" },
+      { url: "/clinic-inside-photo-waiting-room.jpeg", alt: "Waiting Area" },
+      { url: "/clinic-inside-photo-working-area.jpeg", alt: "Consultation Room" }
     ]
   },
   {
     title: "Before & After",
     description: "Witness the transformative power of our advanced aesthetic procedures.",
     images: [
-      { url: "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&q=80&w=800", alt: "Smile Transformation 1" },
-      { url: "https://images.unsplash.com/photo-1590625909871-33230a10aa04?auto=format&fit=crop&q=80&w=800", alt: "Smile Transformation 2" },
-      { url: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&q=80&w=800", alt: "Smile Transformation 3" },
-      { url: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800", alt: "Smile Transformation 4" }
+      { url: "/orthodontics.jpg", alt: "Smile Transformation 1" },
+      { url: "/pediatric-care.jpg", alt: "Smile Transformation 2" },
+      { url: "/oral-surgery.webp", alt: "Smile Transformation 3" },
+      { url: "/emergency-care.jpg", alt: "Smile Transformation 4" }
     ]
   },
   {
     title: "Our Technology",
     description: "Equipped with the latest advancements in dental technology for precision and safety.",
     images: [
-      { url: "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&q=80&w=800", alt: "Dental Technology 1" },
-      { url: "https://images.unsplash.com/photo-1570625525418-54ef42be237a?auto=format&fit=crop&q=80&w=800", alt: "Dental Technology 2" },
-      { url: "https://images.unsplash.com/photo-1542884748-2b87b36c6b90?auto=format&fit=crop&q=80&w=800", alt: "Dental Technology 3" },
-      { url: "https://images.unsplash.com/photo-1604928148962-d9f21ac6df03?auto=format&fit=crop&q=80&w=800", alt: "Dental Technology 4" }
+      { url: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800", alt: "Dental Technology 1" },
+      { url: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800", alt: "Dental Technology 2" },
+      { url: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800", alt: "Dental Technology 3" },
+      { url: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800", alt: "Dental Technology 4" }
     ]
   },
   {
-    title: "Our Team",
+    title: "Our Team & Achievements",
     description: "Meet the dedicated professionals committed to your oral health and well-being.",
     images: [
-      { url: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=800", alt: "Team Member 1" },
-      { url: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=800", alt: "Team Member 2" },
-      { url: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=800", alt: "Team in Action" },
-      { url: "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&q=80&w=800", alt: "Team Collaboration" }
+      { url: "/doctor-with-staff.jpeg", alt: "Team" },
+      { url: "/doctor-recieving-degree.jpeg", alt: "Receiving Degree" },
+      { url: "/doctor-getting-felicitated-1.jpeg", alt: "Felicitated" },
+      { url: "/doctor-getting-felicitated-2.jpeg", alt: "Achievement" }
     ]
   }
 ];

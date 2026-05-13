@@ -39,12 +39,12 @@ export function AnimatedStat({ value, suffix }: { value: number; suffix: string 
 }
 
 const facilityImages = [
-  "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800",
-  "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800",
-  "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800",
-  "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800",
-  "https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&q=80&w=800",
-  "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800"
+  "/clinic-photo-outside-1.jpeg",
+  "/clinic-photo-outside-2.jpeg",
+  "/clinic-photo-outside-3.jpeg",
+  "/clinic-photo-outside-4.jpeg",
+  "/clinic-inside-photo-waiting-room.jpeg",
+  "/clinic-inside-photo-working-area.jpeg"
 ];
 
 const transformations = [
@@ -77,9 +77,9 @@ export default function About() {
       <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1629909615184-74f495363b67?auto=format&fit=crop&q=80&w=2000" 
+            src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=2000" 
             alt="Clinic Interior"
-            className="w-full h-full object-cover blur-sm opacity-30"
+            className="w-full h-full object-cover opacity-50"
             width={2000}
             height={1000}
             fetchPriority="high"
@@ -87,7 +87,7 @@ export default function About() {
             decoding="async"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-espresso)] via-[var(--color-espresso)]/70 to-[var(--color-espresso)]"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-espresso)] via-[var(--color-espresso)]/50 to-[var(--color-espresso)]"></div>
         </div>
 
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto pt-20">
@@ -141,7 +141,7 @@ export default function About() {
             >
               <div className="relative z-10 overflow-hidden rounded-t-[8px] img-zoom shadow-warm">
                 <img 
-                  src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=1000" 
+                  src="/doctor-working-on-laptop.jpeg" 
                   alt="Dr. Neeraj Agrawal examining dental X-rays"
                   className="w-full object-cover aspect-[3/4]"
                   width={600}
@@ -325,7 +325,7 @@ export default function About() {
             <div className="relative w-full max-w-[645px] group bg-[var(--color-espresso)] rounded-lg shadow-warm-glow border border-[var(--color-latte)]/10 transition-all duration-500 overflow-hidden flex flex-col">
               <div className="w-full aspect-[3/4] sm:aspect-square md:aspect-[4/3] overflow-hidden relative">
                 <img 
-                  src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=1000" 
+                  src="/doctor-image-1.jpeg" 
                   alt="Dr. Neeraj Agrawal"
                   className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
                   referrerPolicy="no-referrer"

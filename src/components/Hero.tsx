@@ -155,15 +155,34 @@ export default function Hero() {
                   className="relative oval-mask overflow-hidden aspect-[3/4] w-full max-w-sm sm:max-w-md mx-auto lg:ml-auto img-zoom"
                 >
                   <motion.img 
-                    src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800" 
+                    src="/doctor-in-work-clothes.jpeg" 
                     alt="Dental Clinic" 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover origin-top"
                     style={{ scale: imageScale }}
                     referrerPolicy="no-referrer"
                     fetchPriority="high"
                     decoding="async"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-espresso)]/60 via-transparent to-transparent" />
+                </motion.div>
+                
+                <motion.div
+                  variants={fadeInUp}
+                  className="absolute text-center -bottom-6 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:-bottom-6 lg:-left-6 glass-card p-4 z-20 w-[240px]"
+                >
+                  <div className="flex items-center gap-3">
+                    <motion.div 
+                      className="w-10 h-10 rounded-full bg-[var(--color-bronze)]/10 flex items-center justify-center text-[var(--color-bronze)] shrink-0"
+                      animate={{ scale: [1, 1.1, 1] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                    >
+                      <Star size={18} />
+                    </motion.div>
+                    <div className="text-left">
+                      <div className="font-serif text-lg text-[var(--color-cream)] leading-tight whitespace-nowrap">Gold Medalist</div>
+                      <div className="text-[9px] uppercase tracking-[0.15em] font-bold text-[var(--color-latte)]/60 whitespace-nowrap">Dr. Neeraj Agrawal</div>
+                    </div>
+                  </div>
                 </motion.div>
               </motion.div>
               
@@ -181,27 +200,6 @@ export default function Hero() {
                 animate={{ rotate: 360, scale: [1, 1.05, 1] }}
                 transition={{ rotate: { duration: 30, repeat: Infinity, ease: 'linear' }, scale: { duration: 4, repeat: Infinity, ease: 'easeInOut' } }}
               />
-
-              <motion.div
-                variants={fadeInUp}
-                initial="hidden"
-                animate="visible"
-                className="absolute -bottom-6 left-0 glass-card p-4"
-              >
-                <div className="flex items-center gap-3">
-                  <motion.div 
-                    className="w-10 h-10 rounded-full bg-[var(--color-bronze)]/10 flex items-center justify-center text-[var(--color-bronze)]"
-                    animate={{ scale: [1, 1.1, 1] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                  >
-                    <Star size={18} />
-                  </motion.div>
-                  <div>
-                    <div className="font-serif text-sm text-[var(--color-cream)]">Award Winning</div>
-                    <div className="text-[9px] uppercase tracking-[0.15em] font-bold text-[var(--color-latte)]/60">Dental Excellence</div>
-                  </div>
-                </div>
-              </motion.div>
             </div>
           </div>
         </motion.div>
@@ -341,7 +339,7 @@ export default function Hero() {
                 >
                   <div className="relative aspect-[4/5] max-w-md mx-auto img-zoom shadow-warm">
                     <motion.img
-                      src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800"
+                      src="/clinic-inside-photo-working-area.jpeg"
                       alt="Modern dental clinic"
                       className="w-full h-full object-cover rounded-sm"
                       whileHover={{ scale: 1.02 }}
@@ -360,28 +358,7 @@ export default function Hero() {
                   </div>
                 </motion.div>
 
-                <motion.div
-                  variants={fadeInUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  animate={{ y: [0, -10, 0] }}
-                  className="absolute -bottom-4 right-4 sm:-bottom-8 sm:-left-8 glass-card p-4 sm:p-6 w-[220px] sm:max-w-[260px] z-20"
-                >
-                  <div className="flex items-center gap-4">
-                    <motion.div 
-                      className="w-12 h-12 rounded-full border border-[var(--color-bronze)] flex items-center justify-center text-[var(--color-bronze)]"
-                      animate={{ rotate: [0, 10, 0] }}
-                      transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                    >
-                      <Star size={20} />
-                    </motion.div>
-                    <div>
-                      <div className="font-serif text-lg text-[var(--color-cream)]">Gold Medalist</div>
-                      <div className="text-[10px] uppercase tracking-[0.1em] font-bold text-[var(--color-latte)]/60">Dr. Neeraj Agrawal</div>
-                    </div>
-                  </div>
-                </motion.div>
+
               </motion.div>
             </div>
 

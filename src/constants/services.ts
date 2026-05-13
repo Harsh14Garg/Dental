@@ -8,7 +8,7 @@ export const services = [
     longDescription: "Our general dentistry services focus on maintaining your oral health through regular checkups, professional cleanings, and preventative care. We believe in early intervention to prevent more complex issues down the line. Our team ensures a comfortable and thorough examination process.",
     icon: HeartPulse, 
     color: "from-rose-500/10 to-rose-600/5",
-    image: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800",
+    image: "/clinic-inside-photo-working-area.jpeg",
     benefits: ["Regular checkups", "Professional cleaning", "Early cavity detection", "Oral cancer screening"],
     process: [
       { 
@@ -45,7 +45,7 @@ export const services = [
     longDescription: "Enhance the natural beauty of your smile with our cosmetic dentistry solutions. From professional teeth whitening to custom-crafted veneers, we help you achieve the smile you've always wanted. We focus on natural-looking results.",
     icon: Sparkles, 
     color: "from-amber-500/10 to-amber-600/5",
-    image: "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&q=80&w=800",
+    image: "/doctor-with-staff.jpeg",
     benefits: ["Teeth whitening", "Porcelain veneers", "Smile makeovers", "Bonding"],
     process: [
       { 
