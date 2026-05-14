@@ -77,7 +77,7 @@ export default function About() {
       <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=2000" 
+            src="/clinic-digital-banner.webp" 
             alt="Clinic Interior"
             className="w-full h-full object-cover opacity-50"
             width={2000}
