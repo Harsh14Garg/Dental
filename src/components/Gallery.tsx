@@ -7,20 +7,20 @@ const gallerySections = [
     title: "Clinic Tour",
     description: "Experience our state-of-the-art facility designed for your comfort and expert care.",
     images: [
-      { url: "/clinic-photo-outside-1.jpeg", alt: "Clinic Exterior" },
-      { url: "/clinic-photo-outside-4.jpeg", alt: "Clinic Entrance" },
-      { url: "/clinic-inside-photo-waiting-room.jpeg", alt: "Waiting Area" },
-      { url: "/clinic-inside-photo-working-area.jpeg", alt: "Consultation Room" }
+      { url: "/clinic-photo-outside-1.webp", alt: "Clinic Exterior" },
+      { url: "/clinic-photo-outside-4.webp", alt: "Clinic Entrance" },
+      { url: "/clinic-inside-photo-waiting-room.webp", alt: "Waiting Area" },
+      { url: "/clinic-inside-photo-working-area.webp", alt: "Consultation Room" }
     ]
   },
   {
     title: "Before & After",
     description: "Witness the transformative power of our advanced aesthetic procedures.",
     images: [
-      { url: "/orthodontics.jpg", alt: "Smile Transformation 1" },
-      { url: "/pediatric-care.jpg", alt: "Smile Transformation 2" },
+      { url: "/orthodontics.webp", alt: "Smile Transformation 1" },
+      { url: "/pediatric-care.webp", alt: "Smile Transformation 2" },
       { url: "/oral-surgery.webp", alt: "Smile Transformation 3" },
-      { url: "/emergency-care.jpg", alt: "Smile Transformation 4" }
+      { url: "/emergency-care.webp", alt: "Smile Transformation 4" }
     ]
   },
   {
@@ -37,10 +37,10 @@ const gallerySections = [
     title: "Our Team & Achievements",
     description: "Meet the dedicated professionals committed to your oral health and well-being.",
     images: [
-      { url: "/doctor-with-staff.jpeg", alt: "Team" },
-      { url: "/doctor-recieving-degree.jpeg", alt: "Receiving Degree" },
-      { url: "/doctor-getting-felicitated-1.jpeg", alt: "Felicitated" },
-      { url: "/doctor-getting-felicitated-2.jpeg", alt: "Achievement" }
+      { url: "/doctor-with-staff.webp", alt: "Team" },
+      { url: "/doctor-recieving-degree.webp", alt: "Receiving Degree" },
+      { url: "/doctor-getting-felicitated-1.webp", alt: "Felicitated" },
+      { url: "/doctor-getting-felicitated-2.webp", alt: "Achievement" }
     ]
   }
 ];

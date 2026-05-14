@@ -39,12 +39,12 @@ export function AnimatedStat({ value, suffix }: { value: number; suffix: string 
 }
 
 const facilityImages = [
-  "/clinic-photo-outside-1.jpeg",
-  "/clinic-photo-outside-2.jpeg",
-  "/clinic-photo-outside-3.jpeg",
-  "/clinic-photo-outside-4.jpeg",
-  "/clinic-inside-photo-waiting-room.jpeg",
-  "/clinic-inside-photo-working-area.jpeg"
+  "/clinic-photo-outside-1.webp",
+  "/clinic-photo-outside-2.webp",
+  "/clinic-photo-outside-3.webp",
+  "/clinic-photo-outside-4.webp",
+  "/clinic-inside-photo-waiting-room.webp",
+  "/clinic-inside-photo-working-area.webp"
 ];
 
 const transformations = [
@@ -141,7 +141,7 @@ export default function About() {
             >
               <div className="relative z-10 overflow-hidden rounded-t-[8px] img-zoom shadow-warm">
                 <img 
-                  src="/doctor-working-on-laptop.jpeg" 
+                  src="/doctor-working-on-laptop.webp" 
                   alt="Dr. Neeraj Agrawal examining dental X-rays"
                   className="w-full object-cover aspect-[3/4]"
                   width={600}
@@ -325,7 +325,7 @@ export default function About() {
             <div className="relative w-full max-w-[645px] group bg-[var(--color-espresso)] rounded-lg shadow-warm-glow border border-[var(--color-latte)]/10 transition-all duration-500 overflow-hidden flex flex-col">
               <div className="w-full aspect-[3/4] sm:aspect-square md:aspect-[4/3] overflow-hidden relative">
                 <img 
-                  src="/doctor-image-1.jpeg" 
+                  src="/doctor-image-1.webp" 
                   alt="Dr. Neeraj Agrawal"
                   className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
                   referrerPolicy="no-referrer"
@@ -407,6 +407,8 @@ export default function About() {
                     alt={item.service}
                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                     referrerPolicy="no-referrer"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-espresso)]/95 via-[var(--color-espresso)]/60 to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>

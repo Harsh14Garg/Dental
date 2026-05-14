@@ -20,5 +20,19 @@ export default defineConfig(({ mode }) => {
     server: {
       hmr: process.env.DISABLE_HMR !== 'true',
     },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              if (id.includes('react')) return 'react-vendor';
+              if (id.includes('firebase')) return 'firebase-vendor';
+              if (id.includes('framer-motion') || id.includes('motion')) return 'motion-vendor';
+              return 'vendor';
+            }
+          }
+        }
+      }
+    }
   };
 });

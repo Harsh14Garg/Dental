@@ -8,7 +8,7 @@ export const services = [
     longDescription: "Our general dentistry services focus on maintaining your oral health through regular checkups, professional cleanings, and preventative care. We believe in early intervention to prevent more complex issues down the line. Our team ensures a comfortable and thorough examination process.",
     icon: HeartPulse, 
     color: "from-rose-500/10 to-rose-600/5",
-    image: "/clinic-inside-photo-working-area.jpeg",
+    image: "/clinic-inside-photo-working-area.webp",
     benefits: ["Regular checkups", "Professional cleaning", "Early cavity detection", "Oral cancer screening"],
     process: [
       { 
@@ -45,7 +45,7 @@ export const services = [
     longDescription: "Enhance the natural beauty of your smile with our cosmetic dentistry solutions. From professional teeth whitening to custom-crafted veneers, we help you achieve the smile you've always wanted. We focus on natural-looking results.",
     icon: Sparkles, 
     color: "from-amber-500/10 to-amber-600/5",
-    image: "/doctor-with-staff.jpeg",
+    image: "/doctor-with-staff.webp",
     benefits: ["Teeth whitening", "Porcelain veneers", "Smile makeovers", "Bonding"],
     process: [
       { 
@@ -82,7 +82,7 @@ export const services = [
     longDescription: "Achieve a straighter, healthier smile with our orthodontic treatments. We offer both traditional braces and modern clear aligner solutions tailored to your specific needs, focusing on both aesthetics and functionality.",
     icon: Activity, 
     color: "from-blue-500/10 to-blue-600/5",
-    image: "/orthodontics.jpg",
+    image: "/orthodontics.webp",
     benefits: ["Traditional braces", "Clear aligners", "Bite correction", "Improved oral function"],
     process: [
       { 
@@ -156,7 +156,7 @@ export const services = [
     longDescription: "We provide a welcoming and gentle environment for children's dental care. Our focus is on making every visit positive, educational, and comfortable for your little ones, setting them up for a lifetime of good oral health.",
     icon: Smile, 
     color: "from-purple-500/10 to-purple-600/5",
-    image: "/pediatric-care.jpg",
+    image: "/pediatric-care.webp",
     benefits: ["Child-friendly environment", "Preventative care", "Education", "Early intervention"],
     process: [
       { 
@@ -193,7 +193,7 @@ export const services = [
     longDescription: "Dental emergencies can happen unexpectedly. We offer rapid response and expert care to alleviate pain and address urgent dental issues promptly, ensuring you get the care you need when it matters most.",
     icon: ShieldCheck, 
     color: "from-red-500/10 to-red-600/5",
-    image: "/emergency-care.jpg",
+    image: "/emergency-care.webp",
     benefits: ["Same-day appointments", "Pain relief", "Urgent care", "Expert diagnosis"],
     process: [
       { 

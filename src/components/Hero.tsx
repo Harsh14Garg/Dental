@@ -155,7 +155,7 @@ export default function Hero() {
                   className="relative oval-mask overflow-hidden aspect-[3/4] w-full max-w-sm sm:max-w-md mx-auto lg:ml-auto img-zoom"
                 >
                   <motion.img 
-                    src="/doctor-in-work-clothes.jpeg" 
+                    src="/doctor-in-work-clothes.webp" 
                     alt="Dental Clinic" 
                     className="w-full h-full object-cover origin-top"
                     style={{ scale: imageScale }}
@@ -339,7 +339,7 @@ export default function Hero() {
                 >
                   <div className="relative aspect-[4/5] max-w-md mx-auto img-zoom shadow-warm">
                     <motion.img
-                      src="/clinic-inside-photo-working-area.jpeg"
+                      src="/clinic-inside-photo-working-area.webp"
                       alt="Modern dental clinic"
                       className="w-full h-full object-cover rounded-sm"
                       whileHover={{ scale: 1.02 }}
