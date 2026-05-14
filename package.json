@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
+    "@netlify/functions": "^5.2.1",
     "@types/compression": "^1.8.1",
     "@types/cors": "^2.8.19",
     "compression": "^1.8.1",
