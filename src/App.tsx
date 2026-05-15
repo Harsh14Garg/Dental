@@ -39,13 +39,12 @@ export default function App() {
         {loading && <Preloader key="preloader" onComplete={() => setLoading(false)} />}
       </AnimatePresence>
 
-      {!loading && (
-        <SmoothScroll>
-          <div className="min-h-screen flex flex-col bg-[var(--color-espresso)] text-[var(--color-cream)] relative w-full">
-            <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:p-4 focus:bg-[var(--color-espresso)] focus:text-[var(--color-cream)] focus:border focus:border-[var(--color-bronze)] focus:left-4 focus:top-4 rounded-sm">
-              Skip to main content
-            </a>
-            <Navbar />
+      <SmoothScroll>
+        <div className="min-h-screen flex flex-col bg-[var(--color-espresso)] text-[var(--color-cream)] relative w-full">
+          <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:p-4 focus:bg-[var(--color-espresso)] focus:text-[var(--color-cream)] focus:border focus:border-[var(--color-bronze)] focus:left-4 focus:top-4 rounded-sm">
+            Skip to main content
+          </a>
+          <Navbar />
             
             <main id="main-content" className="flex-grow relative z-10 w-full min-h-screen">
               <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
@@ -87,7 +86,6 @@ export default function App() {
             <Footer />
           </div>
         </SmoothScroll>
-      )}
     </Router>
   );
 }
