@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from 'react';
+import { useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'motion/react';
 import Navbar from './components/layout/Navbar';
@@ -8,8 +8,8 @@ import Preloader from './components/layout/Preloader';
 import { PageTransition } from './components/layout/PageTransition';
 import ScrollToTop from './components/layout/ScrollToTop';
 import ScrollProgress from './components/layout/ScrollProgress';
+import Hero from './components/Hero';
 
-const Hero = lazy(() => import('./components/Hero'));
 const About = lazy(() => import('./components/About'));
 const Services = lazy(() => import('./components/Services'));
 const Gallery = lazy(() => import('./components/Gallery'));
@@ -42,9 +42,12 @@ export default function App() {
       {!loading && (
         <SmoothScroll>
           <div className="min-h-screen flex flex-col bg-[var(--color-espresso)] text-[var(--color-cream)] relative w-full">
+            <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:p-4 focus:bg-[var(--color-espresso)] focus:text-[var(--color-cream)] focus:border focus:border-[var(--color-bronze)] focus:left-4 focus:top-4 rounded-sm">
+              Skip to main content
+            </a>
             <Navbar />
             
-            <main className="flex-grow relative z-10">
+            <main id="main-content" className="flex-grow relative z-10 w-full min-h-screen">
               <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
                 <AnimatePresence mode="wait">
                   <Routes>

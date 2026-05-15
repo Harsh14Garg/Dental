@@ -155,7 +155,7 @@ export const bookAppointment = async (data: Omit<AppointmentData, 'status' | 'cr
     // This is the secret to the backup site's speed. The website won't 
     // wait for the email server to respond before showing "Success".
     const absoluteUrl = `/api/send-email`;
-    console.log(`📡 Fetching to: ${absoluteUrl}`);
+
     fetch(absoluteUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

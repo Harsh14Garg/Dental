@@ -757,14 +757,14 @@ export default function AppointmentForm() {
                               className="absolute w-full mt-2 bg-[var(--bg-card)] border border-[var(--card-border)] rounded-xl shadow-[var(--card-shadow)] z-30 p-4"
                             >
                               <div className="flex items-center justify-between mb-4">
-                                <button type="button" onClick={handlePrevMonth} className="p-1 hover:bg-[var(--input-bg)] rounded-md text-[var(--text-heading)]">
-                                  <ArrowLeft size={16} />
+                                <button type="button" onClick={handlePrevMonth} className="p-1 hover:bg-[var(--input-bg)] rounded-md text-[var(--text-heading)]" aria-label="Previous month">
+                                  <ArrowLeft size={16} aria-hidden="true" />
                                 </button>
                                 <div className="font-semibold text-[14px] text-[var(--text-heading)]">
                                   {displayMonth.toLocaleString('en-US', { month: 'long', year: 'numeric' })}
                                 </div>
-                                <button type="button" onClick={handleNextMonth} className="p-1 hover:bg-[var(--input-bg)] rounded-md text-[var(--text-heading)]">
-                                  <ArrowRight size={16} />
+                                <button type="button" onClick={handleNextMonth} className="p-1 hover:bg-[var(--input-bg)] rounded-md text-[var(--text-heading)]" aria-label="Next month">
+                                  <ArrowRight size={16} aria-hidden="true" />
                                 </button>
                               </div>
                               <div className="grid grid-cols-7 gap-1">

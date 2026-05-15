@@ -50,7 +50,7 @@ export default function Contact() {
       }
     };
     
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
@@ -154,9 +154,9 @@ export default function Contact() {
               className="mt-12 flex items-center gap-4"
             >
               <div className="flex -space-x-3">
-                <img src={`https://i.pravatar.cc/100?img=1`} alt="Patient" className="w-10 h-10 rounded-full border-2 border-white relative z-30" />
-                <img src={`https://i.pravatar.cc/100?img=5`} alt="Patient" className="w-10 h-10 rounded-full border-2 border-white relative z-20" />
-                <img src={`https://i.pravatar.cc/100?img=9`} alt="Patient" className="w-10 h-10 rounded-full border-2 border-white relative z-10" />
+                <img src={`https://i.pravatar.cc/100?img=1`} alt="Patient" width="40" height="40" loading="lazy" decoding="async" className="w-10 h-10 rounded-full border-2 border-white relative z-30" />
+                <img src={`https://i.pravatar.cc/100?img=5`} alt="Patient" width="40" height="40" loading="lazy" decoding="async" className="w-10 h-10 rounded-full border-2 border-white relative z-20" />
+                <img src={`https://i.pravatar.cc/100?img=9`} alt="Patient" width="40" height="40" loading="lazy" decoding="async" className="w-10 h-10 rounded-full border-2 border-white relative z-10" />
               </div>
               <span className="text-[var(--color-text-secondary)] font-medium text-[14px]">Trusted by 15,000+ patients</span>
             </motion.div>

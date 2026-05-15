@@ -1,5 +1,5 @@
 import React from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import {
   Calendar,
   Clock,
@@ -334,18 +334,15 @@ export default function AdminDashboard() {
           </div>
         ) : appointments.length > 0 ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <AnimatePresence>
               {appointments.map((app, index) => (
                 <motion.div
                   key={app.id}
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
                   transition={{
                     duration: 0.4,
                     delay: Math.min(index * 0.05, 0.5),
                   }}
-                  layout
                   className="glass-card p-8 border border-[var(--color-bronze)]/10 group hover:border-[var(--color-bronze)]/30 transition-all duration-500 flex flex-col rounded-sm bg-[var(--color-espresso)]"
                 >
                   <div className="flex justify-between items-start mb-6">
@@ -368,8 +365,9 @@ export default function AdminDashboard() {
                         onClick={() => handleDelete(app.id)}
                         className="text-red-400/70 hover:text-red-400 transition-colors p-1"
                         title="Delete Booking"
+                        aria-label="Delete Booking"
                       >
-                        <Trash2 size={16} strokeWidth={1.5} />
+                        <Trash2 size={16} strokeWidth={1.5} aria-hidden="true" />
                       </button>
                     </div>
                   </div>
@@ -443,7 +441,6 @@ export default function AdminDashboard() {
                   )}
                 </motion.div>
               ))}
-            </AnimatePresence>
           </div>
         ) : (
           <motion.div

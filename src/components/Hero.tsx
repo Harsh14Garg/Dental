@@ -157,11 +157,13 @@ export default function Hero() {
                   <motion.img 
                     src="/doctor-in-work-clothes.webp" 
                     alt="Dental Clinic" 
+                    width="600"
+                    height="800"
+                    fetchPriority="high"
+                    decoding="async"
                     className="w-full h-full object-cover origin-top"
                     style={{ scale: imageScale }}
                     referrerPolicy="no-referrer"
-                    fetchPriority="high"
-                    decoding="async"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-espresso)]/60 via-transparent to-transparent" />
                 </motion.div>

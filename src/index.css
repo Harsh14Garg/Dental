@@ -25,7 +25,7 @@
   
   --color-text-primary: var(--cream);
   --color-text-secondary: var(--latte);
-  --color-text-muted: color-mix(in srgb, var(--color-latte) 60%, transparent);
+  --color-text-muted: color-mix(in srgb, var(--color-latte) 85%, transparent);
   
   --color-card-bg: var(--card-bg);
   --color-input-bg: var(--input-bg);
@@ -368,7 +368,7 @@ input:focus, textarea:focus, select:focus {
   border-color: var(--color-bronze);
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-caramel) 30%, transparent);
 }
-.input-luxury::placeholder { color: color-mix(in srgb, var(--color-latte) 40%, transparent); }
+.input-luxury::placeholder { color: color-mix(in srgb, var(--color-latte) 85%, transparent); }
 
 /* Custom Underline Animation */
 .link-underline {

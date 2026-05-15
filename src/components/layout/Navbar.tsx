@@ -136,9 +136,9 @@ export default function Navbar() {
           <button 
             onClick={() => setIsDarkMode(!isDarkMode)}
             className="p-2 rounded-full hover:bg-[var(--color-latte)]/10 text-[var(--color-cream)] transition-colors"
-            aria-label="Toggle theme"
+            aria-label="Toggle dark mode"
           >
-            {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
+            {isDarkMode ? <Sun size={18} aria-hidden="true" /> : <Moon size={18} aria-hidden="true" />}
           </button>
           
           <AnimatePresence mode="wait">
@@ -176,9 +176,9 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Toggle */}
-        <button className="lg:hidden text-[var(--color-cream)] p-2" onClick={() => setIsOpen(!isOpen)}>
+        <button className="lg:hidden text-[var(--color-cream)] p-2" onClick={() => setIsOpen(!isOpen)} aria-label="Open navigation menu" aria-expanded={isOpen}>
           <AnimatePresence mode="wait">
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
           </AnimatePresence>
         </button>
       </div>
@@ -197,8 +197,9 @@ export default function Navbar() {
               <button 
                 onClick={() => setIsDarkMode(!isDarkMode)}
                 className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.15em] text-[var(--color-cream)] p-3 mb-2 bg-[var(--color-latte)]/10 rounded-lg"
+                aria-label="Toggle dark mode"
               >
-                {isDarkMode ? <Sun size={16} /> : <Moon size={16} />} {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+                {isDarkMode ? <Sun size={16} aria-hidden="true" /> : <Moon size={16} aria-hidden="true" />} {isDarkMode ? 'Light Mode' : 'Dark Mode'}
               </button>
 
               {isAdmin && (
