@@ -102,10 +102,10 @@ export default function AdminDashboard() {
         status: newStatus
       });
 
-      // Send email notification
-      const baseUrl = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, '') || '';
+      // Send email notification (Uses relative URL to hit Netlify function directly)
+      const fetchUrl = `/api/send-email`;
       if (newStatus === 'confirmed') {
-        await fetch(`${baseUrl}/api/send-email`, {
+        await fetch(fetchUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -115,7 +115,7 @@ export default function AdminDashboard() {
           })
         });
       } else if (newStatus === 'cancelled') {
-        await fetch(`${baseUrl}/api/send-email`, {
+        await fetch(fetchUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

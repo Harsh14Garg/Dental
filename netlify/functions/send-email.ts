@@ -1,41 +1,38 @@
-import { Handler } from "@netlify/functions";
-
-export const handler: Handler = async (event, context) => {
-  if (event.httpMethod === "OPTIONS") {
-    return {
-      statusCode: 200,
+export default async (req: Request) => {
+  if (req.method === "OPTIONS") {
+    return new Response("", {
+      status: 200,
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Methods": "POST, OPTIONS"
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
       },
-      body: ""
-    }
+    });
   }
 
-  if (event.httpMethod !== "POST") {
-    return {
-      statusCode: 405,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify({ error: "Method not allowed" }),
-    };
+  if (req.method !== "POST") {
+    return new Response(JSON.stringify({ error: "Method not allowed" }), {
+      status: 405,
+      headers: { "Access-Control-Allow-Origin": "*" },
+    });
   }
 
   try {
-    const { to, subject, html } = JSON.parse(event.body || "{}");
+    const body = await req.json();
+    const { to, subject, html } = body;
     const apiKey = process.env.BREVO_API_KEY;
 
     if (!apiKey) {
       console.error("🚨 BREVO_API_KEY is not set.");
-      return {
-        statusCode: 500,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-        body: JSON.stringify({ error: "Configuration error" }),
-      };
+      return new Response(
+        JSON.stringify({
+          error: "Configuration error: BREVO_API_KEY environment variable is missing on Netlify.",
+        }),
+        {
+          status: 500,
+          headers: { "Access-Control-Allow-Origin": "*" },
+        }
+      );
     }
 
     console.log(`Sending email to: ${to}`);
@@ -57,32 +54,37 @@ export const handler: Handler = async (event, context) => {
 
     if (!response.ok) {
       console.error("❌ Brevo API error:", JSON.stringify(data));
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: "Email sending failed", details: data }),
-      };
+      return new Response(
+        JSON.stringify({ error: "Email sending failed", details: data }),
+        {
+          status: 500,
+          headers: { "Access-Control-Allow-Origin": "*" },
+        }
+      );
     }
 
     console.log("✅ Mail sent successfully!");
-    return {
-      statusCode: 200,
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Methods": "POST, OPTIONS"
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
       },
-      body: JSON.stringify({ success: true }),
-    };
+    });
   } catch (err) {
     console.error("❌ Server error:", err);
-    return {
-      statusCode: 500,
+    return new Response(JSON.stringify({ error: "Internal server error" }), {
+      status: 500,
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Methods": "POST, OPTIONS"
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
       },
-      body: JSON.stringify({ error: "Internal server error" }),
-    };
+    });
   }
+};
+
+export const config = {
+  path: "/api/send-email",
 };
