@@ -27,8 +27,10 @@ import {
   doc,
   getDoc,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { onAuthStateChanged, User } from "firebase/auth";
+import { toast } from "sonner";
 import { fadeInUp, fadeInStagger } from "../lib/animations";
 
 interface Appointment {
@@ -194,8 +196,9 @@ export default function AdminDashboard() {
   const handleDelete = async (id: string) => {
     try {
       await deleteAppointment(id);
+      toast.success("Appointment deleted successfully");
     } catch (error) {
-      alert("Failed to delete appointment.");
+      toast.error("Failed to delete appointment.");
     }
   };
 
@@ -203,9 +206,20 @@ export default function AdminDashboard() {
     try {
       await updateDoc(doc(db, "testimonials", id), { reply: reply[id] });
       setReply((prev) => ({ ...prev, [id]: "" }));
+      toast.success("Reply added successfully");
     } catch (error) {
-      alert("Failed to add reply.");
+      toast.error("Failed to add reply.");
       handleFirestoreError(error, OperationType.UPDATE, `testimonials/${id}`);
+    }
+  };
+
+  const handleDeleteTestimonial = async (id: string) => {
+    try {
+      await deleteDoc(doc(db, "testimonials", id));
+      toast.success("Testimonial deleted successfully");
+    } catch (error) {
+      toast.error("Failed to delete testimonial.");
+      handleFirestoreError(error, OperationType.DELETE, `testimonials/${id}`);
     }
   };
 
@@ -259,6 +273,14 @@ export default function AdminDashboard() {
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => handleDeleteTestimonial(t.id)}
+                      className="text-red-400/70 hover:text-red-400 transition-colors p-1"
+                      title="Delete Testimonial"
+                      aria-label="Delete Testimonial"
+                    >
+                      <Trash2 size={16} strokeWidth={1.5} aria-hidden="true" />
+                    </button>
                     <button
                       onClick={async () => {
                         await updateDoc(doc(db, "testimonials", t.id), {

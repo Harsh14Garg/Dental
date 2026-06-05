@@ -54,6 +54,23 @@ export default function Navbar() {
     return () => { unsubAuth(); unsubDoc?.(); };
   }, []);
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      // @ts-ignore
+      if (window.lenis) window.lenis.stop();
+    } else {
+      document.body.style.overflow = 'unset';
+      // @ts-ignore
+      if (window.lenis) window.lenis.start();
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+      // @ts-ignore
+      if (window.lenis) window.lenis.start();
+    };
+  }, [isOpen]);
+
   const [loginError, setLoginError] = useState<string | null>(null);
 
   const handleLogin = async () => { 
@@ -191,7 +208,8 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden absolute top-full left-0 right-0 bg-[var(--color-espresso)] border-t border-[var(--color-latte)]/10 overflow-hidden shadow-xl"
+            data-lenis-prevent="true"
+            className="lg:hidden absolute top-full left-0 right-0 bg-[var(--color-espresso)] border-t border-[var(--color-latte)]/10 overflow-y-auto overscroll-contain shadow-xl max-h-[calc(100vh-80px)]"
           >
             <div className="py-6 px-6 flex flex-col gap-2">
               <button 
